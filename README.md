@@ -4,7 +4,7 @@
 ## Table of Contents
 1. [Overview](#Overview)
 1. [Product Spec](#Product-Spec)
-1. [User research]()
+1. User research
 4. [Wireframes](#Wireframes)
 4. [Schema](#Schema)
 
@@ -91,11 +91,13 @@ We conducted a [survey](https://docs.google.com/forms/d/e/1FAIpQLSeBJ-VV-j40B85z
 Through these user insights, we are confident that a habit-tracking app where you can share habits with a friend will help people become more motivated to continue their progress! Moreover, we will pay a lot of attention to the UI in order to make it a nice experience to track your habits. 
 
 ## Wireframes
-<img src="https://github.com/habitwise/HabitWise/blob/main/wireframes.jpg" width=600>
+
 
 ### [BONUS] Digital Wireframes & Mockups
+<img src="https://github.com/habitwise/HabitWise/blob/main/wireframes.jpg" width=800>
 
 ### [BONUS] Interactive Prototype
+<img src="https://github.com/habitwise/HabitWise/blob/main/wireframes.gif" width=300>
 
 ## Schema 
 [This section will be completed in Unit 9]
