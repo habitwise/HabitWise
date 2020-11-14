@@ -4,7 +4,7 @@
 ## Table of Contents
 1. [Overview](#Overview)
 1. [Product Spec](#Product-Spec)
-1. User research
+1. [User research] (#User-research)
 4. [Wireframes](#Wireframes)
 4. [Schema](#Schema)
 
