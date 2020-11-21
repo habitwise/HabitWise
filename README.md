@@ -4,7 +4,7 @@
 ## Table of Contents
 1. [Overview](#Overview)
 1. [Product Spec](#Product-Spec)
-1. User research
+1. [User research]()
 4. [Wireframes](#Wireframes)
 4. [Schema](#Schema)
 
@@ -101,9 +101,140 @@ Through these user insights, we are confident that a habit-tracking app where yo
 
 ## Schema 
 [This section will be completed in Unit 9]
-### Models
-[Add table of models]
-### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+## Models
+### User
+
+
+| Property | Type     | Description |
+| -------- | -------- | -------- |
+| ObjectID | String   | Unique ID for the user field     |
+| username | String   | Username of the user     |
+| password | String   | Password of the user     |
+| email    | String   | email Id  of the user   |
+| displayPic | File   | Profile pic (Image)   |
+| emailVerified | boolean   | Flag to identify if user acocunt is verified|
+
+
+
+### Habit
+
+| Property | Type     | Description |
+| -------- | -------- | -------- |
+| ObjectID | String   | Unique ID for the habit object|
+| title | String   | Title of the habit    |
+| users  | Arrays<User>  | Author of the habit|
+| recurrence |  Number  | Daily (0)/Weekly(1)|
+| frequency |  Number  | Number of times per day|
+| days | Arrays | If weekly, days on which habit should be accomplished|
+| status |  String  | Complete / Incomplete|
+
+
+### Activity
+
+| Property | Type     | Description |
+| -------- | -------- | -------- |
+| ObjectID | String   | Unique ID for the habit's activity|
+| date | DateTime   | Date for which activity is recorded    |
+| counter  | Number   | Number of times user accomplished habit|
+| user |  Pointer to User  | user who accomplished it|
+| habit |  Pointer to Habit  | Many to one reference to Habit's object|
+
+
+### Friends
+This is a many to many relationship between User objects. This table defines user's friends
+
+| Property | Type     | Description |
+| -------- | -------- | -------- |
+| ObjectID | String   | Unique ID for the user-friend relation|
+| user1 |  Pointer to User  | User details|
+| user2 |  Pointer to User  | Friend details|
+
+### Requests
+
+| Property | Type     | Description |
+| -------- | -------- | -------- |
+| ObjectID | String   | Unique ID for the user-friend relation|
+| fromUser |  Pointer to User  | User who send the request|
+| toUser |  Pointer to User  | User the request is sent to|
+| status |  String  | Pending / Accepted( req will be removed from table) / Declined|
+
+
+
+
+
+## Networking
+### List of network requests by screen
+NETWORK MODELS
+
+*  Habits Screen
+    1. (Read/GET) Query all habits where user is author and with respective date selected. 
+    ```Java
+     ParseQuery<Habit> query = ParseQuery.getQuery(Habit.class);
+        query.include(Habit.KEY_USER);
+        query.findInBackground(new FindCallback<Habit>() {
+            @Override
+            public void done(List<Habit> habits, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting habits", e);
+                    return;
+                }
+                for (Habit habit : habits) {
+                    Log.i(TAG, "Habit:" + habit.getTitle() );
+                }
+               
+            }
+        });
+    ```
+    2. (Create/POST) Create a new activity object on the habit.
+    3. (Update/PUT) Update the activity object.
+    4. (Read/GET) Query the activities of the habits displayed for that day.
+
+* Login Screen
+    1. (Read/GET) Query the user object.
+    ```Java
+    ParseUser.logInInBackground(username, password, new LogInCallback() {
+            @Override
+            public void done(ParseUser user, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Error occured while login");
+                    return;
+                } else {
+                    goMainActivity();
+                    Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    ```    
+
+* Signup Screen
+    1. (Create/POST) Create a new user object.
+    2. (Read/GET) Query the user objects (to avoid reusing the username).
+
+
+* Add new habit Screen
+    1. (Create/POST) Create a new habit object.
+    2. (Update/PUT) Update the habit object.
+
+
+* User Profile Screen
+    1. (Read/GET) Query logged in user object
+    2. (Update/PUT) Update user profile image on the user object.
+    3. (Read/GET) Query the friends objects which has the user in it.
+    4. (Create/POST) Create a new requests object.
+    5. (Read/GET) Query the requests objects if the user is the from_user or to_user.
+
+
+* Notifications Screen
+    1. (Read/GET) Query all requests object  where user is the to_user.
+    2. (Update/PUT) Update requests objects if a req is accepted or ignored.
+    3. (Delete) Delete existing requests object if the user accepts/declines .
+
+* Habit Details Screen
+    1. (Delete) Delete existing habit
+    object.
+    2. (Update/PUT) Update  status of the habit object to ‘completed’
+    3. (Read/GET) Query the activity objects of the habit selected.
+
+* Analysis Screen
+    1. (Read/GET) Query all habit objects and related activity objects where user is author.
+
