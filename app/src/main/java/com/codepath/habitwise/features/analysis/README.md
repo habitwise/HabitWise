@@ -1,0 +1,1 @@
+This folder should contain all files like activity, repository, network etc for analysis activity.
