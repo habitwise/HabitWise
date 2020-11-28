@@ -254,7 +254,7 @@ In this milestone, we have
 
 
 ###  Build Progress
-<img src="https://github.com/habitwise/HabitWise/blob/main/wireframes.jpg" width=800>
+<img src="https://github.com/habitwise/HabitWise/blob/main/Milestone1.gif" width=800>
 
 ###  Next Sprint
 [X] Have planned the milestone 2 and have created, assigned & added issues to the storyboard.
