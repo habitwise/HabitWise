@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.codepath.habitwise.R;
+import com.codepath.habitwise.features.MainActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.parse.ParseUser;
 
@@ -73,6 +74,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginEventListn
     public ParseUser onSuccessfulLogin() {
         Log.i(TAG, "onSuccessfulLogin");
         Snackbar.make(viewLogin, "Logged in", Snackbar.LENGTH_LONG).show();
+        Intent loginIntent = new Intent(context, MainActivity.class);
+        startActivity(loginIntent);
         return null;
     }
 
