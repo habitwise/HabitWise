@@ -3,6 +3,7 @@ package com.codepath.habitwise.features.analysis;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -12,9 +13,13 @@ import android.widget.Button;
 
 import com.codepath.habitwise.R;
 import com.codepath.habitwise.features.addUpdateHabit.AddHabitActivity;
+import com.codepath.habitwise.models.Habit;
 
 public class AnalysisFragment extends Fragment {
+    private static final int RESULT_OK = 1;
+    private Habit emptyHabit;
     private Button btnNewHabit;
+    private final int REQUEST_CODE = 20;
 
     public AnalysisFragment() {
         // Required empty public constructor
@@ -31,13 +36,18 @@ public class AnalysisFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        emptyHabit = new Habit();
+        emptyHabit.setTitle("Hello");
         btnNewHabit = view.findViewById(R.id.btnNewHabit);
 
         btnNewHabit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AddHabitActivity.class);
+            //    intent.putExtra("habit", Parcels.wrap(emptyHabit));
                 startActivity(intent);
+
             }
         });
     }
+
 }

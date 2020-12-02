@@ -33,5 +33,5 @@ dependencies {
     implementation "com.github.parse-community.Parse-SDK-Android:parse:1.18.5"
     implementation "androidx.appcompat:appcompat:${appCompatVersion}"
     implementation "com.google.android.material:material:${designSupportVersion}"
-
+    implementation "androidx.cardview:cardview:1.0.0"
 }
