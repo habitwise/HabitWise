@@ -2,10 +2,7 @@ package com.codepath.habitwise.models;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 @ParseClassName("Habit")
 public class Habit extends ParseObject {
@@ -18,6 +15,7 @@ public class Habit extends ParseObject {
 
     //getters
     public String getTitle() {return getString(key_title);}
+    public String getFrequency() {return getString(key_frequency);}
 
     //setters
     public void setTitle(String title) {

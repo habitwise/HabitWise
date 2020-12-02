@@ -21,7 +21,9 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AddHabitActivity extends AppCompatActivity {
@@ -37,12 +39,15 @@ public class AddHabitActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_habit);
-        // = Parcels.unwrap(data.getParcelableExtra("habit"));
+        habit = getIntent().getParcelableExtra("habit");;
 
         etTitle = findViewById(R.id.etTitle);
         etFrequency = findViewById(R.id.etFrequency);
         btnSubmit = findViewById(R.id.btnSubmit);
         days = new ArrayList<>();
+
+        etTitle.setText(habit.getTitle());
+        etFrequency.setText(habit.getFrequency());
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +83,8 @@ public class AddHabitActivity extends AppCompatActivity {
     }
 
     private void saveHabit(String title, int frequency) {
-        Habit habit = new Habit();
+        Collections.sort(days);
+
         habit.setTitle(title);
         habit.setFrequency(frequency);
         habit.setRecurrence(recurrence);
@@ -154,10 +160,10 @@ public class AddHabitActivity extends AppCompatActivity {
                 break;
             case R.id.checkbox_sun:
                 if (checked) {
-                    days.add(7);
+                    days.add(0);
                 }
                 else {
-                    days.remove(new Integer(7));
+                    days.remove(new Integer(0));
                 }
                 break;
         }

@@ -37,15 +37,13 @@ public class AnalysisFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         emptyHabit = new Habit();
-        emptyHabit.setTitle("Hello");
         btnNewHabit = view.findViewById(R.id.btnNewHabit);
 
         btnNewHabit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AddHabitActivity.class);
-            //    intent.putExtra("habit", Parcels.wrap(emptyHabit));
+                intent.putExtra("habit", emptyHabit);
                 startActivity(intent);
-
             }
         });
     }
