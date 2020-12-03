@@ -6,6 +6,7 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
 import java.io.File;
@@ -52,8 +53,13 @@ public class LoginSignupParseRepository implements ILoginSignupRepository{
         user.setUsername(username);
         user.put(KEY_FIRSTNAME, firstName);
         user.put(KEY_LASTNAME, lastName);
-        if (image != null) {
-            user.put(KEY_DISPLAY_PIC, new ParseFile(image));
+        try {
+            if (image != null) {
+                ParseFile photo = new ParseFile(image);
+                photo.save();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error while saving parseFile: " + e.getMessage());
         }
 
         user.signUpInBackground(new SignUpCallback() {

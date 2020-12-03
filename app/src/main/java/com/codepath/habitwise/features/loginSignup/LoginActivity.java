@@ -30,6 +30,10 @@ public class LoginActivity extends AppCompatActivity implements ILoginEventListn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if (ParseUser.getCurrentUser() != null) {
+            goMainActivity();
+        }
+
         init();
     }
 
@@ -84,5 +88,11 @@ public class LoginActivity extends AppCompatActivity implements ILoginEventListn
         Log.i(TAG, "onFailedLogin");
         Snackbar.make(viewLogin, "Invalid account credentials", Snackbar.LENGTH_LONG).show();
         return null;
+    }
+
+    private void goMainActivity() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
     }
 }

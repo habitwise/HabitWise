@@ -25,7 +25,9 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,6 +48,7 @@ public class SignupActivity extends AppCompatActivity implements ISignupEventLis
     Button btnAddDisplayPic;
     View viewSignup;
     CircleImageView displayPic;
+    Bitmap displayPicBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,9 +117,10 @@ public class SignupActivity extends AppCompatActivity implements ISignupEventLis
             return;
         }
 
+
         try {
-            if (displayPic.getDrawingCache() != null) {
-                image = Utilities.bitmapToFile(displayPic.getDrawingCache(), this);
+            if (displayPicBitmap != null) {
+                image = Utilities.bitmapToFile(displayPicBitmap, this);
             }
         } catch (IOException ioe) {
             Log.e(TAG, "Exception occured while converting bitmap to file: " + ioe.getMessage());
@@ -221,8 +225,8 @@ public class SignupActivity extends AppCompatActivity implements ISignupEventLis
             switch (requestCode) {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
-                        Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-                        displayPic.setImageBitmap(selectedImage);
+                        displayPicBitmap = (Bitmap) data.getExtras().get("data");
+                        displayPic.setImageBitmap(displayPicBitmap);
                     }
 
                     break;
@@ -238,7 +242,8 @@ public class SignupActivity extends AppCompatActivity implements ISignupEventLis
 
                                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                                 String picturePath = cursor.getString(columnIndex);
-                                displayPic.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                displayPicBitmap = BitmapFactory.decodeFile(picturePath);
+                                displayPic.setImageBitmap(displayPicBitmap);
                                 cursor.close();
                             }
                         }
@@ -248,6 +253,5 @@ public class SignupActivity extends AppCompatActivity implements ISignupEventLis
             }
         }
     }
-
 
 }
