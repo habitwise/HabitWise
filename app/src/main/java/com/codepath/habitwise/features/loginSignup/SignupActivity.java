@@ -16,18 +16,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.codepath.habitwise.R;
 import com.codepath.habitwise.features.Utilities;
 import com.google.android.material.snackbar.Snackbar;
-import com.parse.ParseException;
-import com.parse.ParseUser;
-import com.parse.SignUpCallback;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -67,7 +61,7 @@ public class SignupActivity extends AppCompatActivity implements ISignupEventLis
         viewSignup = findViewById(R.id.viewSignup);
         btnSignup = findViewById(R.id.btnSignUp);
         btnAddDisplayPic = findViewById(R.id.btnAddDisplayPic);
-        displayPic = findViewById(R.id.profile_image);
+        displayPic = findViewById(R.id.ivUserProfileImage);
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
