@@ -10,16 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.codepath.habitwise.R;
 import com.codepath.habitwise.features.addUpdateHabit.AddHabitActivity;
+import com.codepath.habitwise.features.loginSignup.LoginActivity;
 import com.codepath.habitwise.models.Habit;
+import com.parse.ParseUser;
 
 public class AnalysisFragment extends Fragment {
-    private static final int RESULT_OK = 1;
     private Habit emptyHabit;
     private Button btnNewHabit;
-    private final int REQUEST_CODE = 20;
+    private Button btnLogout;
 
     public AnalysisFragment() {
         // Required empty public constructor
@@ -38,12 +40,24 @@ public class AnalysisFragment extends Fragment {
 
         emptyHabit = new Habit();
         btnNewHabit = view.findViewById(R.id.btnNewHabit);
+        btnLogout = view.findViewById(R.id.btnLogout);
 
         btnNewHabit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AddHabitActivity.class);
                 intent.putExtra("habit", emptyHabit);
                 startActivity(intent);
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Logging out", Toast.LENGTH_LONG).show();
+                ParseUser.logOut();
+                Intent i = new Intent(getContext(), LoginActivity.class);
+                startActivity(i);
+                getActivity().finish(); //remove from stack
             }
         });
     }
