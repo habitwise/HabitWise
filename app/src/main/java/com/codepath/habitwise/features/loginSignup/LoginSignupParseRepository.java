@@ -37,7 +37,10 @@ public class LoginSignupParseRepository implements ILoginSignupRepository{
             @Override
             public void done(ParseUser user, ParseException e) {
                 Log.i(TAG, "Login Successful");
-                if (e != null) eventListner.onFailedLogin();
+                if (e != null) {
+                    eventListner.onFailedLogin();
+                    return;
+                }
                 eventListner.onSuccessfulLogin();
             }
         });
