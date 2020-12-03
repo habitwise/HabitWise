@@ -45,15 +45,19 @@ public class AddHabitActivity extends AppCompatActivity {
         etFrequency = findViewById(R.id.etFrequency);
         btnSubmit = findViewById(R.id.btnSubmit);
         days = new ArrayList<>();
+        Log.i(TAG, "current user ");
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        Log.i(TAG, "current user " + currentUser);
 
-        etTitle.setText(habit.getTitle());
-        etFrequency.setText(habit.getFrequency());
+      //  etTitle.setText(habit.getTitle());
+      //  etFrequency.setText(habit.getFrequency());
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String title = etTitle.getText().toString();
                 int frequency = Integer.parseInt(etFrequency.getText().toString());
+
                 if (title.isEmpty()) {
                     Toast.makeText(AddHabitActivity.this, "Title cannot be empty",Toast.LENGTH_LONG).show();
                     return;
@@ -86,6 +90,7 @@ public class AddHabitActivity extends AppCompatActivity {
         Collections.sort(days);
 
         habit.setTitle(title);
+        //habit.setUser(currentUser);
         habit.setFrequency(frequency);
         habit.setRecurrence(recurrence);
         habit.setDays((ArrayList) days);

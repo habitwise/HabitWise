@@ -17,9 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
 
-        <activity android:name=".features.addUpdateHabit.AddHabitActivity"></activity>
-        <activity android:name=".features.MainActivity"></activity>
-        <activity android:name=".features.loginSignup.SignupActivity"></activity>
         <activity android:name=".features.loginSignup.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".features.addUpdateHabit.AddHabitActivity"></activity>
+        <activity android:name=".features.MainActivity"></activity>
+        <activity android:name=".features.loginSignup.SignupActivity"></activity>
     </application>
 
 </manifest>

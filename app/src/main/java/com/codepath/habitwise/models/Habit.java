@@ -2,6 +2,10 @@ package com.codepath.habitwise.models;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
+
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
 @ParseClassName("Habit")
@@ -15,13 +19,18 @@ public class Habit extends ParseObject {
 
     //getters
     public String getTitle() {return getString(key_title);}
-    public String getFrequency() {return getString(key_frequency);}
+    public ParseUser getUser() {
+        return getParseUser(key_user);
+    }
+    public Integer getRecurrence()  { return getInt(key_recurrence); }
+    public Integer getFrequency() {return getInt(key_frequency);}
+    //public JSONArray getDays() {return getJSONArray(key_days);}
+    public String getStatus() {return getString(key_status);}
+
 
     //setters
-    public void setTitle(String title) {
-        put(key_title, title);
-    }
-    public void setUser(String user) { put(key_user, user); }
+    public void setTitle(String title) { put(key_title, title); }
+    public void setUser(ParseUser user) { put(key_user, user); }
     public void setRecurrence(int recurrence) {
         put(key_recurrence, recurrence);
     }
