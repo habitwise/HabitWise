@@ -45,9 +45,6 @@ public class AddHabitActivity extends AppCompatActivity {
         etFrequency = findViewById(R.id.etFrequency);
         btnSubmit = findViewById(R.id.btnSubmit);
         days = new ArrayList<>();
-        Log.i(TAG, "current user ");
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        Log.i(TAG, "current user " + currentUser);
 
       //  etTitle.setText(habit.getTitle());
       //  etFrequency.setText(habit.getFrequency());
@@ -57,13 +54,14 @@ public class AddHabitActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String title = etTitle.getText().toString();
                 int frequency = Integer.parseInt(etFrequency.getText().toString());
+                ParseUser currentUser = ParseUser.getCurrentUser();
 
                 if (title.isEmpty()) {
                     Toast.makeText(AddHabitActivity.this, "Title cannot be empty",Toast.LENGTH_LONG).show();
                     return;
                 }
                 Log.i(TAG, "Button clicked");
-                saveHabit(title, frequency);
+                saveHabit(title, currentUser, frequency);
                 finish();
             }
         });
@@ -86,11 +84,11 @@ public class AddHabitActivity extends AppCompatActivity {
         }
     }
 
-    private void saveHabit(String title, int frequency) {
+    private void saveHabit(String title, ParseUser currentUser, int frequency) {
         Collections.sort(days);
 
         habit.setTitle(title);
-        //habit.setUser(currentUser);
+        habit.setUser(currentUser);
         habit.setFrequency(frequency);
         habit.setRecurrence(recurrence);
         habit.setDays((ArrayList) days);
