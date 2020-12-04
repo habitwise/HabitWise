@@ -1,5 +1,7 @@
 package com.codepath.habitwise.features.userProfile;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,22 +16,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codepath.habitwise.R;
 import com.codepath.habitwise.models.Friends;
 import com.codepath.habitwise.objectKeys.ObjFriends;
 import com.codepath.habitwise.objectKeys.ObjParseUser;
 import com.parse.FindCallback;
+import com.parse.GetFileCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements IUserProfileEventListner{
 
     public static final String TAG = "USER_PROFILE_FRAGMENT";
     private RecyclerView rvFriends;
@@ -78,28 +83,39 @@ public class ProfileFragment extends Fragment {
 
     private void updateView() {
         tvName.setText(ParseUser.getCurrentUser().get(ObjParseUser.KEY_FIRST_NAME) + " " + ParseUser.getCurrentUser().get(ObjParseUser.KEY_LAST_NAME));
-        updateFriendsList();
-    }
-
-    private void updateFriendsList(){
-        ParseQuery<Friends> query = ParseQuery.getQuery("Friends");
-
-        query.include(ObjParseUser.KEY_TABLE);
-        query.whereEqualTo(ObjFriends.KEY_FROM_USER, ParseUser.getCurrentUser());
-        query.findInBackground(new FindCallback<Friends>() {
+        ParseUser.getCurrentUser().getParseFile(ObjParseUser.KEY_DISPLAY_PIC).getFileInBackground(new GetFileCallback() {
             @Override
-            public void done(List<Friends> objects, ParseException e) {
+            public void done(File file, ParseException e) {
                 if (e != null) {
-                    Log.e(TAG, "Error occured while fetching all posts");
-                } else {
-                    Log.i(TAG, "Fetching all posts successful");
-                    for (Friends friend : objects) {
-                        Log.i(TAG, friend.getToUser().getUsername());
-                        friends.add(friend.getToUser());
-                    }
-                    friendsListAdapter.notifyDataSetChanged();
+                    Log.e(TAG, "Error while loading profile pic: " + e.getMessage());
+                    return;
                 }
+                String filePath = file.getPath();
+                Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+                displayPic.setImageBitmap(bitmap);
             }
         });
+        IUserProfileRepository repository = UserProfileParseRepository.getInstance();
+        repository.fetchFriendsList(this);
+    }
+
+
+    @Override
+    public void fetchFriendsListSuccessful(List<ParseUser> newFriendsList) {
+        friends.clear();
+        friends.addAll(newFriendsList);
+        updateRvFriendsList();
+    }
+
+    @Override
+    public void fetchFriendsListFailed(Exception e) {
+        if (e != null) {
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG);
+        }
+    }
+
+    @Override
+    public void updateRvFriendsList() {
+        friendsListAdapter.notifyDataSetChanged();
     }
 }

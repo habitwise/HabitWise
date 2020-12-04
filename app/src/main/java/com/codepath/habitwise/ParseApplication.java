@@ -2,13 +2,17 @@ package com.codepath.habitwise;
 
 import android.app.Application;
 
+import com.codepath.habitwise.models.Friends;
 import com.parse.Parse;
+import com.parse.ParseObject;
 
 public class ParseApplication extends Application {
     // Initializes Parse SDK as soon as the application is created
     @Override
     public void onCreate() {
         super.onCreate();
+
+        ParseObject.registerSubclass(Friends.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("JU8NDB8cV6IjDS3tkTf1F1ArrvVu5g73MTgxf2Eo")

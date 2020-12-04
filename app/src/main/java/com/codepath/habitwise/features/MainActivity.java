@@ -14,6 +14,7 @@ import com.codepath.habitwise.features.analysis.AnalysisFragment;
 import com.codepath.habitwise.features.home.HomeFragment;
 import com.codepath.habitwise.features.userProfile.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        ParseUser user = ParseUser.getCurrentUser();
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
