@@ -1,35 +1,29 @@
 package com.codepath.habitwise.features.home;
-
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.codepath.habitwise.R;
-import com.codepath.habitwise.models.Habit;
+import com.codepath.habitwise.models.Task;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
     public static final String TAG = "HomeFragment";
-    private RecyclerView rvHabits;
-    protected HabitAdapter adapter;
-    protected List<Habit> HabitList;
+    private RecyclerView rvTasks;
+    protected TaskAdapter adapter_task;
+    protected List<Task> taskList;
     protected SwipeRefreshLayout swipeContainer;
-//    EndlessRecyclerViewScrollListener scrollListener;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -51,7 +45,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onRefresh() {
                 Log.i(TAG,"fetching new data");
-                queryHabits();
+                queryTasks();
             }
         });
         // Configure the refreshing colors
@@ -59,35 +53,32 @@ public class HomeFragment extends Fragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-        rvHabits = view.findViewById(R.id.rvHabits);
-        HabitList = new ArrayList<>();
-        adapter = new HabitAdapter(getContext(),HabitList);
-        rvHabits.setAdapter(adapter);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        rvHabits.setLayoutManager(layoutManager);
-        queryHabits();
+        rvTasks = view.findViewById(R.id.rvTasks);
+        taskList = new ArrayList<>();
+        adapter_task = new TaskAdapter(getContext(),taskList);
+        rvTasks.setAdapter(adapter_task);
+        GridLayoutManager manager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
+        rvTasks.setLayoutManager(manager);
+        queryTasks();
     }
 
-
-
-    protected void queryHabits() {
-        ParseQuery<Habit> query = ParseQuery.getQuery(Habit.class);
-        query.include(Habit.key_title);
-        query.setLimit(20);
-        query.findInBackground(new FindCallback<Habit>() {
+    protected void queryTasks() {
+        ParseQuery<Task> taskQuery = ParseQuery.getQuery(Task.class);
+        taskQuery.setLimit(20);
+        taskQuery.findInBackground(new FindCallback<Task>() {
             @Override
-            public void done(List<Habit> habits, ParseException e) {
+            public void done(List<Task> tasks, ParseException e) {
                 if (e != null){
-                    Log.e(TAG, "Issue with getting habits",e);
+                    Log.e(TAG, "Issue with getting tasks",e);
                     return;
                 }
-                for (Habit post : habits) {
-                    Log.i(TAG, "Habit:" + post.getTitle() );
+                for (Task task : tasks) {
+                    Log.d("post", "retrieved a related post");
                 }
-                adapter.clear();
-                HabitList.addAll(habits);
+                adapter_task.clear();
+                taskList.addAll(tasks);
 //                swipeContainer.setRefreshing(false);
-                adapter.notifyDataSetChanged();
+                adapter_task.notifyDataSetChanged();
 
             }
         });
