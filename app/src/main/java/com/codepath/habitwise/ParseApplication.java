@@ -14,6 +14,7 @@ public class ParseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        ParseObject.registerSubclass(Habit.class);
 
         ParseObject.registerSubclass(Friends.class);
         ParseObject.registerSubclass(Habit.class);

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".features.addUpdateHabit.AddHabitActivity">
+
+    <TextView
+        android:id="@+id/tvPageTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Let's build a new habit!"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="start|top"
+        android:ems="10"
+        android:minLines="5"
+        android:inputType="textPersonName"
+        android:hint="Run"/>
+
+    <TextView
+        android:id="@+id/tvFrequency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Frequency"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etFrequency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="How many times"
+        android:inputType="number" />
+
+    <RadioGroup
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton android:id="@+id/radio_daily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Daily"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/radio_weekly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weekly"
+            android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <CheckBox android:id="@+id/checkbox_mon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mon"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/checkbox_tue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tue"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/checkbox_wed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wed"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/checkbox_thu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thu"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/checkbox_fri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fri"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/checkbox_sat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sat"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/checkbox_sun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sun"
+            android:onClick="onCheckboxClicked"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create habit" />
+
+</LinearLayout>
