@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@drawable/customborder"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Drink Water"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"></TextView>
+
+    <TextView
+        android:id="@+id/tvInfo"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:text="5 times everyday! (fake data) "></TextView>
+
+    <Switch
+        android:id="@+id/toggleSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/counterBox"
+        android:layout_width="fill_parent"
+        android:layout_height="44dp"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/decrementButton"
+            android:layout_width="49dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:text="-" />
+
+        <TextView
+            android:id="@+id/textViewCounter"
+            android:layout_width="50dp"
+            android:layout_height="fill_parent"
+            android:layout_alignBottom="@+id/decrementButton"
+            android:layout_toRightOf="@+id/decrementButton"
+            android:gravity="center"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/incrementButton"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:layout_toRightOf="@+id/textViewCounter"
+            android:text="+" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

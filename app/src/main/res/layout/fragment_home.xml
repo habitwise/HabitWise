@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.home.HomeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".features.home.HomeFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<!--    <com.michalsvec.singlerowcalendar.calendar.SingleRowCalendar-->
+<!--        android:id="@+id/main_single_row_calendar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        app:deselection="false"-->
+<!--        app:longPress="false"-->
+<!--        app:multiSelection="false" />-->
+
+    <devs.mulham.horizontalcalendar.HorizontalCalendarView
+        android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="This is home fragment" />
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:textColorSelected="#FFFF"/>
 
-</FrameLayout>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTasks"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</LinearLayout>
