@@ -10,19 +10,23 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.codepath.habitwise.R;
 import com.codepath.habitwise.models.Habit;
+import com.codepath.habitwise.models.HabitUserMapping;
 import com.google.android.material.card.MaterialCardView;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,12 +38,14 @@ public class AddHabitActivity extends AppCompatActivity {
     private List<Integer> days;
     private Integer recurrence;
     Habit habit;
+    HabitUserMapping habitUserMapping;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_habit);
         habit = getIntent().getParcelableExtra("habit");;
+        habitUserMapping = new HabitUserMapping();
 
         etTitle = findViewById(R.id.etTitle);
         etFrequency = findViewById(R.id.etFrequency);
@@ -75,7 +81,14 @@ public class AddHabitActivity extends AppCompatActivity {
                 if (checked)
                     recurrence = 0;
                     Log.i(TAG, recurrence.toString());
-                    break;
+                    days = new ArrayList<Integer>(
+                        Arrays.asList(1,2,3,4,5,6,7));
+                    LinearLayout checkboxesView = (LinearLayout) findViewById(R.id.checkboxes);
+                    for ( int i=0; i<checkboxesView.getChildCount(); i++) {
+                        CheckBox currentCheckBox = (CheckBox) checkboxesView.getChildAt(i);
+                        currentCheckBox.setChecked(true);
+                    }
+                break;
             case R.id.radio_weekly:
                 if (checked)
                     recurrence = 1;
@@ -105,12 +118,27 @@ public class AddHabitActivity extends AppCompatActivity {
                 }
             }
         });
+
+        habitUserMapping.setUser(currentUser);
+        habitUserMapping.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e!=null) {
+                    Toast.makeText(AddHabitActivity.this, "Error while saving HabitUserMapping",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    //Toast.makeText(AddHabitActivity.this, "New HabitUserMapping saved!",Toast.LENGTH_LONG).show();
+                    Log.i(TAG, "HabitUserMapping save successful");
+                }
+            }
+        });
     }
 
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-
+        RadioButton dailyButton = findViewById(R.id.radio_daily);
+        RadioButton weeklyButton = findViewById(R.id.radio_weekly);
         // Check which checkbox was clicked
         switch(view.getId()) {
             case R.id.checkbox_mon:
@@ -118,7 +146,9 @@ public class AddHabitActivity extends AppCompatActivity {
                     days.add(1);
                 }
                 else {
-                    days.remove(new Integer(1));
+                    days.remove(new Integer(2));
+                    dailyButton.setChecked(false);
+                    weeklyButton.setChecked(true);
                 }
                 break;
             case R.id.checkbox_tue:
@@ -126,7 +156,9 @@ public class AddHabitActivity extends AppCompatActivity {
                     days.add(2);
                 }
                 else {
-                    days.remove(new Integer(2));
+                    days.remove(new Integer(3));
+                    dailyButton.setChecked(false);
+                    weeklyButton.setChecked(true);
                 }
                 break;
             case R.id.checkbox_wed:
@@ -134,7 +166,9 @@ public class AddHabitActivity extends AppCompatActivity {
                     days.add(3);
                 }
                 else {
-                    days.remove(new Integer(3));
+                    days.remove(new Integer(4));
+                    dailyButton.setChecked(false);
+                    weeklyButton.setChecked(true);
                 }
                 break;
             case R.id.checkbox_thu:
@@ -142,7 +176,9 @@ public class AddHabitActivity extends AppCompatActivity {
                     days.add(4);
                 }
                 else {
-                    days.remove(new Integer(4));
+                    days.remove(new Integer(5));
+                    dailyButton.setChecked(false);
+                    weeklyButton.setChecked(true);
                 }
                 break;
             case R.id.checkbox_fri:
@@ -150,7 +186,9 @@ public class AddHabitActivity extends AppCompatActivity {
                     days.add(5);
                 }
                 else {
-                    days.remove(new Integer(5));
+                    days.remove(new Integer(6));
+                    dailyButton.setChecked(false);
+                    weeklyButton.setChecked(true);
                 }
                 break;
             case R.id.checkbox_sat:
@@ -158,7 +196,9 @@ public class AddHabitActivity extends AppCompatActivity {
                     days.add(6);
                 }
                 else {
-                    days.remove(new Integer(6));
+                    days.remove(new Integer(7));
+                    dailyButton.setChecked(false);
+                    weeklyButton.setChecked(true);
                 }
                 break;
             case R.id.checkbox_sun:
@@ -166,7 +206,9 @@ public class AddHabitActivity extends AppCompatActivity {
                     days.add(0);
                 }
                 else {
-                    days.remove(new Integer(0));
+                    days.remove(new Integer(1));
+                    dailyButton.setChecked(false);
+                    weeklyButton.setChecked(true);
                 }
                 break;
         }
