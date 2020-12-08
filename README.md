@@ -7,6 +7,7 @@
 1. [User research]()
 4. [Wireframes](#Wireframes)
 4. [Schema](#Schema)
+4. [Milestone1](#Milestone1)
 
 ## Overview
 ### Description
@@ -237,6 +238,39 @@ NETWORK MODELS
 
 * Analysis Screen
     1. (Read/GET) Query all habit objects and related activity objects where user is author.
+    
+    
+## Milestone1 
+
+###  User Stories
+
+In this milestone, we have 
+
+[X] Implemented skeleton code for the application to enable easy integration of other functionalities.
+
+[X] Build and integrated Parse with the application.
+
+[X] Implemented backend of "Add a habit" activity to add a new habit and created a basic UI.
+
+[X] Successfully integrated parse for the "Add a habit" activity.
+
+[X] Implemented backend of "Homepage" activity by showing the list of habits in a recycler view and created a basic UI.
+
+[X] Successfully integrated parse for the "Homepage" activity.
+
+
+###  Build Progress
+
+## Video Walkthrough
+
+Here's a walkthrough of implemented user stories:
+
+<img src='https://github.com/habitwise/HabitWise/blob/main/Milestone1.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
+###  Next Sprint
+[X] Have planned the milestone 2 and have created, assigned & added issues to the storyboard.
 
 
 

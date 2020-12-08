@@ -1,4 +1,5 @@
 package com.codepath.habitwise.features.home;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,8 +9,10 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.codepath.habitwise.R;
 import com.codepath.habitwise.models.Habit;
 import com.codepath.habitwise.models.Task;

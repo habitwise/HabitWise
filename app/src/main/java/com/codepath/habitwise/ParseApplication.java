@@ -1,9 +1,8 @@
 package com.codepath.habitwise;
 
 import android.app.Application;
-
-import com.codepath.habitwise.models.Habit;
 import com.codepath.habitwise.models.Task;
+import com.codepath.habitwise.models.Habit;
 import com.parse.Parse;
 import com.parse.ParseObject;
 

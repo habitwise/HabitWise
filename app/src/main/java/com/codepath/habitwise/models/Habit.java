@@ -1,6 +1,11 @@
 package com.codepath.habitwise.models;
+
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
+
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
 @ParseClassName("Habit")
@@ -14,19 +19,18 @@ public class Habit extends ParseObject {
 
     //getters
     public String getTitle() {return getString(key_title);}
-    public String getObj() {return getObjectId();}
-    public String getUser() {return getString(key_user);}
-    public int getRecurrence() {return getInt(key_recurrence);}
+    public ParseUser getUser() {
+        return getParseUser(key_user);
+    }
+    public int getRecurrence()  { return getInt(key_recurrence); }
     public int getFrequency() {return getInt(key_frequency);}
-    public Object getDays() {return get(key_days);}
+    //public JSONArray getDays() {return getJSONArray(key_days);}
     public String getStatus() {return getString(key_status);}
 
 
     //setters
-    public void setTitle(String title) {
-        put(key_title, title);
-    }
-    public void setUser(String user) { put(key_user, user); }
+    public void setTitle(String title) { put(key_title, title); }
+    public void setUser(ParseUser user) { put(key_user, user); }
     public void setRecurrence(int recurrence) {
         put(key_recurrence, recurrence);
     }
@@ -35,5 +39,4 @@ public class Habit extends ParseObject {
     }
     public void setDays(ArrayList arrayList) { put(key_days, arrayList);}
     public void setStatus(String status) { put(key_status, status);}
-
 }

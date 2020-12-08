@@ -1,7 +1,6 @@
 package com.codepath.habitwise.models;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
-import java.util.ArrayList;
 
 @ParseClassName("Task")
 
