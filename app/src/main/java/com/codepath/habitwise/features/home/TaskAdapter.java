@@ -83,7 +83,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         public void bind(Task task) {
             count = task.getCounter();
-            Log.i(TAG, "Values..." + task.getTitle() + task.getCounter() + task.get("habit"));
             ParseQuery<Habit> query = ParseQuery.getQuery("Habit");
             query.whereEqualTo("objectId",task.get("habit"));
             try {
