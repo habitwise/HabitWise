@@ -7,15 +7,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@color/veryLightGrey"
     tools:context=".features.loginSignup.SignupActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Let's get started"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:textSize="30sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
+        android:paddingTop="16dp"
         android:paddingBottom="10dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/ivUserProfileImage"
@@ -23,15 +34,18 @@
             android:layout_height="96dp"
             android:src="@drawable/ic_baseline_person_24"
             app:civ_border_width="2dp"
-            app:civ_border_color="#FF000000"/>
+            app:civ_border_color="@color/colorAccent"/>
 
         <Button
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
             android:id="@+id/btnAddDisplayPic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_photo" />
+            android:padding="16dp"
+            android:background="@drawable/button_light"
+            android:text="Add a photo" />
     </LinearLayout>
 
     <LinearLayout
@@ -44,13 +58,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/first_name" />
+            android:hint="@string/first_name"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="8dp"
+            android:padding="16dp"
+            android:background="@drawable/edittext_background"
+            />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etLastName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"
+            android:padding="16dp"
+            android:background="@drawable/edittext_background"
             android:hint="@string/last_name" />
 
     </LinearLayout>
@@ -64,6 +87,9 @@
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:background="@drawable/edittext_background"
             android:hint="@string/email" />
 
         <com.google.android.material.textfield.TextInputEditText
@@ -71,6 +97,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:background="@drawable/edittext_background"
             android:inputType="textPassword" />
 
         <com.google.android.material.textfield.TextInputEditText
@@ -78,13 +107,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/confirm_password"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:background="@drawable/edittext_background"
             android:inputType="textPassword" />
 
         <Button
             android:id="@+id/btnSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/signup" />
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_accent"
+            android:textColor="#FFFFFF"
+            android:text= "Sign up" />
 
     </LinearLayout>
 
