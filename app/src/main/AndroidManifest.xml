@@ -16,8 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
 
-        android:theme="@style/AppTheme">
-        <activity android:name=".features.loginSignup.SignupActivity"></activity>
+        <activity android:name=".features.loginSignup.SignupActivity" />
         <activity android:name=".features.loginSignup.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
