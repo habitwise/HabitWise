@@ -62,7 +62,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginRight="8dp"
             android:padding="16dp"
-            android:background="@drawable/edittext_background"
+            android:background="@drawable/lightblue"
             />
 
         <com.google.android.material.textfield.TextInputEditText
@@ -73,7 +73,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginLeft="8dp"
             android:padding="16dp"
-            android:background="@drawable/edittext_background"
+            android:background="@drawable/lightblue"
             android:hint="@string/last_name" />
 
     </LinearLayout>
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:padding="16dp"
-            android:background="@drawable/edittext_background"
+            android:background="@drawable/lightblue"
             android:hint="@string/email" />
 
         <com.google.android.material.textfield.TextInputEditText
@@ -99,7 +99,7 @@
             android:hint="@string/password"
             android:layout_marginTop="16dp"
             android:padding="16dp"
-            android:background="@drawable/edittext_background"
+            android:background="@drawable/lightblue"
             android:inputType="textPassword" />
 
         <com.google.android.material.textfield.TextInputEditText
@@ -109,7 +109,7 @@
             android:hint="@string/confirm_password"
             android:layout_marginTop="16dp"
             android:padding="16dp"
-            android:background="@drawable/edittext_background"
+            android:background="@drawable/lightblue"
             android:inputType="textPassword" />
 
         <Button

@@ -31,7 +31,7 @@
             android:inputType="textPersonName"
             android:layout_marginTop="16dp"
             android:padding="16dp"
-            android:background="@drawable/edittext_background"
+            android:background="@drawable/lightblue"
             />
 
         <EditText
@@ -42,7 +42,7 @@
             android:inputType="textPassword"
             android:layout_marginTop="16dp"
             android:padding="16dp"
-            android:background="@drawable/edittext_background"
+            android:background="@drawable/lightblue"
             />
 
         <Button

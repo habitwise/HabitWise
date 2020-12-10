@@ -11,10 +11,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.habitwise.R;
+import com.codepath.habitwise.features.Utilities;
 import com.codepath.habitwise.models.Friends;
 import com.codepath.habitwise.objectKeys.ObjParseUser;
+import com.example.flatdialoglibrary.dialog.FlatDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.parse.FindCallback;
 import com.parse.GetFileCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.File;
@@ -42,6 +49,7 @@ public class ProfileFragment extends Fragment implements IUserProfileEventListne
     private CircleImageView displayPic;
     private RecyclerView rvRequests;
     private TextView tvRequests;
+    private FloatingActionButton fabAddFriend;
 
 
     public ProfileFragment() {
@@ -64,6 +72,7 @@ public class ProfileFragment extends Fragment implements IUserProfileEventListne
         displayPic = view.findViewById(R.id.ivUserProfileImage);
         tvRequests = view.findViewById(R.id.tvRequests);
         rvRequests = view.findViewById(R.id.rvRequests);
+        fabAddFriend = view.findViewById(R.id.fabAddFriend);
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -73,6 +82,56 @@ public class ProfileFragment extends Fragment implements IUserProfileEventListne
                 // once the network request has completed successfully.
                 updateView();
                 swipeContainer.setRefreshing(false);
+            }
+        });
+
+        fabAddFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final FlatDialog flatDialog = new FlatDialog(getContext());
+                flatDialog.setTitle("Get your buddy")
+                        .setSubtitle("Enter your friend's email here")
+                        .isCancelable(true) // To cancel out dialog on touching outside of dialog
+                        .setFirstTextFieldHint("Friend's Email")
+                        .setFirstButtonText("SEND FRIEND REQUEST")
+                        .setSecondButtonText("CANCEL")
+                        .withFirstButtonListner(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                String friendEmail = flatDialog.getFirstTextField();
+
+                                if (Utilities.isValidEmail(friendEmail)) {
+                                    ParseQuery<ParseUser> query = ParseUser.getQuery();
+                                    query.whereEqualTo(ObjParseUser.KEY_EMAIL, friendEmail);
+                                    try {
+                                        ParseUser friend = query.getFirst();
+                                        Friends friends = new Friends();
+                                        friends.setFromUser(ParseUser.getCurrentUser());
+                                        friends.setToUser(friend);
+                                        friends.setStatus("Pending");
+                                        friends.save();
+                                        Toast.makeText(getContext(), "Expect your friend anytime soon!", Toast.LENGTH_LONG).show();
+                                        flatDialog.dismiss();
+                                    } catch (ParseException e) {
+                                        if (e.getCode() == 101) {
+                                            Toast.makeText(getContext(), "Arghh! Your friend isn't registered yet", Toast.LENGTH_LONG).show();
+                                        } else {
+                                            Toast.makeText(getContext(), "Unable to send friend request", Toast.LENGTH_LONG).show();
+                                        }
+                                        Log.e(TAG, "Error occured while fetching friend: " + e.getMessage());
+                                    }
+                                } else {
+                                    Toast.makeText(getContext(), "Enter valid email", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        })
+                        .withSecondButtonListner(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                flatDialog.dismiss();
+                            }
+                        })
+                        .show();
             }
         });
 
