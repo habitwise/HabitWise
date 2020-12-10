@@ -1,5 +1,7 @@
 package com.codepath.habitwise.features.loginSignup;
 
+import com.parse.ParseUser;
+
 import java.io.File;
 
 public interface ILoginSignupRepository {

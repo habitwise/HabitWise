@@ -2,9 +2,11 @@ package com.codepath.habitwise.features.loginSignup;
 
 import android.util.Log;
 
+import com.codepath.habitwise.objectKeys.ObjParseUser;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;

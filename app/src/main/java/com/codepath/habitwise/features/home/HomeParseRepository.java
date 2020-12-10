@@ -2,6 +2,7 @@ package com.codepath.habitwise.features.home;
 
 import android.util.Log;
 
+import com.codepath.habitwise.features.Utilities;
 import com.codepath.habitwise.features.loginSignup.ILoginSignupRepository;
 import com.codepath.habitwise.features.loginSignup.LoginSignupParseRepository;
 import com.codepath.habitwise.models.Habit;
@@ -11,6 +12,8 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import org.joda.time.DateTimeComparator;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -85,6 +88,11 @@ public class HomeParseRepository implements IHomeRepository{
                                 }
                             }
                             if (matchFound) continue;
+
+                            DateTimeComparator dateTimeComparator = DateTimeComparator.getDateOnlyInstance();
+                            int retVal = dateTimeComparator.compare(habitUser.getHabit().getCreatedAt(), date);
+                            if (retVal > 0) continue;
+
                             Task task = new Task();
                             task.setCounter(0);
                             task.setHabit(habitUser.getHabit());
