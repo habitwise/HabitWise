@@ -18,10 +18,9 @@
     <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="36dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/ivUserProfileImage"
@@ -35,8 +34,7 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:layout_marginLeft="16dp"
             android:text="FirstName LastName"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#000000"
@@ -44,23 +42,31 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log out"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_light"
+        />
+
     <LinearLayout
         android:id="@+id/layoutFriends"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="16dp"
+        >
 
         <TextView
             android:id="@+id/tvFriends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:paddingBottom="16dp"
             android:text="Friends"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#000000"
+            android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -78,6 +84,7 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:contentDescription="Add Friend"
+        android:tint="@android:color/white"
         android:src="@drawable/ic_baseline_person_add_24" />
     </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

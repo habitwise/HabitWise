@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:padding="24dp"
     tools:context=".features.addUpdateHabit.AddHabitActivity">
 
     <TextView
@@ -13,14 +14,17 @@
         android:layout_height="wrap_content"
         android:text="Let's build a new habit!"
         android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:layout_marginTop="36dp"
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Name"
+        android:text="What would you like to do?"
+        android:layout_marginTop="16dp"
         android:textStyle="bold" />
 
     <EditText
@@ -30,89 +34,153 @@
         android:layout_weight="1"
         android:gravity="start|top"
         android:ems="10"
+        android:layout_marginTop="8dp"
         android:minLines="5"
         android:inputType="textPersonName"
+        android:background="@drawable/lightblue"
+        android:padding="16dp"
         android:hint="Run"/>
 
     <TextView
         android:id="@+id/tvFrequency"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Frequency"
+        android:text="How often?"
+        android:layout_marginTop="16dp"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/etFrequency"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ems="10"
-        android:hint="How many times"
-        android:inputType="number" />
-
-    <RadioGroup
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:baselineAligned="false"
+        android:gravity="center"
         android:orientation="horizontal">
-        <RadioButton android:id="@+id/radio_daily"
-            android:layout_width="wrap_content"
+
+        <EditText
+            android:id="@+id/etFrequency"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Daily"
-            android:onClick="onRadioButtonClicked"/>
-        <RadioButton android:id="@+id/radio_weekly"
-            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/lightblue"
+            android:ems="10"
+            android:hint="2"
+            android:inputType="number"
+            android:padding="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Weekly"
-            android:onClick="onRadioButtonClicked"/>
-    </RadioGroup>
+            android:layout_marginLeft="16dp"
+            android:text="times everyday"
+            android:textStyle="bold" />
+
+<!--        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="16dp"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/radio_daily"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:onClick="onRadioButtonClicked"-->
+<!--                android:text="day" />-->
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/radio_weekly"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:onClick="onRadioButtonClicked"-->
+<!--                android:text="week" />-->
+<!--        </RadioGroup>-->
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="On which days?"
+        android:textStyle="bold" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/checkboxes"
         android:orientation="horizontal"
         android:layout_width="fill_parent"
+        android:layout_marginTop="8dp"
         android:layout_height="fill_parent">
         <CheckBox android:id="@+id/checkbox_mon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mon"
+            android:text="M"
             android:onClick="onCheckboxClicked"/>
         <CheckBox android:id="@+id/checkbox_tue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tue"
+            android:text="T"
             android:onClick="onCheckboxClicked"/>
         <CheckBox android:id="@+id/checkbox_wed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wed"
+            android:text="W"
             android:onClick="onCheckboxClicked"/>
         <CheckBox android:id="@+id/checkbox_thu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thu"
+            android:text="Th"
             android:onClick="onCheckboxClicked"/>
         <CheckBox android:id="@+id/checkbox_fri"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fri"
+            android:text="F"
             android:onClick="onCheckboxClicked"/>
         <CheckBox android:id="@+id/checkbox_sat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sat"
+            android:text="S"
             android:onClick="onCheckboxClicked"/>
         <CheckBox android:id="@+id/checkbox_sun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sun"
+            android:text="Su"
             android:onClick="onCheckboxClicked"/>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="With a friend?"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/lightblue"
+        >
+        <Spinner
+            android:id="@+id/spinner_friends"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create habit" />
+        android:background="@drawable/button_accent"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="16dp"
+        android:text="Create new habit" />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:textAlignment="center"-->
+<!--        app:srcCompat="@drawable/ic_humans_1" />-->
 
 </LinearLayout>

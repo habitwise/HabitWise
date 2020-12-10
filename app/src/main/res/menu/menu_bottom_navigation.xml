@@ -15,6 +15,6 @@
     <item
         android:id="@+id/action_user"
         android:icon="@drawable/ic_baseline_person_24"
-        android:title="User"
+        android:title="Profile"
         app:showAsAction="always" />
 </menu>

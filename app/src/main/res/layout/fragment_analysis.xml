@@ -6,17 +6,11 @@
     android:orientation="vertical"
     tools:context=".features.analysis.AnalysisFragment">
 
-
     <Button
         android:id="@+id/btnNewHabit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add a new habit" />
-
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Log out" />
+        android:text="Add a new habit"
+        />
 
 </LinearLayout>

@@ -13,7 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="Drink Water"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"></TextView>
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/design_default_color_primary_dark"
+        android:textStyle="bold"
+        ></TextView>
 
     <TextView
         android:id="@+id/tvInfo"
@@ -27,7 +30,8 @@
     <Switch
         android:id="@+id/toggleSwitch"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        />
 
     <RelativeLayout
         android:id="@+id/counterBox"
@@ -43,7 +47,9 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="0dp"
-            android:text="-" />
+            android:text="-"
+            android:background="@drawable/lightblue"
+            />
 
         <TextView
             android:id="@+id/textViewCounter"
@@ -61,7 +67,9 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="0dp"
             android:layout_toRightOf="@+id/textViewCounter"
-            android:text="+" />
+            android:text="+"
+            android:background="@drawable/lightblue"
+            />
 
     </RelativeLayout>
 
