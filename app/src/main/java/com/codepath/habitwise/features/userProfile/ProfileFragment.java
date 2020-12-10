@@ -3,14 +3,6 @@ package com.codepath.habitwise.features.userProfile;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,18 +12,21 @@ import android.widget.Toast;
 
 import com.codepath.habitwise.R;
 import com.codepath.habitwise.models.Friends;
-import com.codepath.habitwise.objectKeys.ObjFriends;
 import com.codepath.habitwise.objectKeys.ObjParseUser;
-import com.parse.FindCallback;
 import com.parse.GetFileCallback;
 import com.parse.ParseException;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment implements IUserProfileEventListner{
@@ -39,10 +34,15 @@ public class ProfileFragment extends Fragment implements IUserProfileEventListne
     public static final String TAG = "USER_PROFILE_FRAGMENT";
     private RecyclerView rvFriends;
     protected FriendsListAdapter friendsListAdapter;
+    protected FriendRequestAdapter friendRequestAdapter;
     protected List<ParseUser> friends;
+    protected List<Friends> friendRequests;
     private TextView tvName;
     private SwipeRefreshLayout swipeContainer;
     private CircleImageView displayPic;
+    private RecyclerView rvRequests;
+    private TextView tvRequests;
+
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -62,6 +62,8 @@ public class ProfileFragment extends Fragment implements IUserProfileEventListne
         rvFriends = view.findViewById(R.id.rvFriends);
         tvName = view.findViewById(R.id.tvName);
         displayPic = view.findViewById(R.id.ivUserProfileImage);
+        tvRequests = view.findViewById(R.id.tvRequests);
+        rvRequests = view.findViewById(R.id.rvRequests);
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -75,10 +77,16 @@ public class ProfileFragment extends Fragment implements IUserProfileEventListne
         });
 
         friends = new ArrayList<>();
+        friendRequests = new ArrayList<>();
         friendsListAdapter = new FriendsListAdapter(getContext(), friends);
+        friendRequestAdapter = new FriendRequestAdapter(getContext(), friendRequests, this);
         rvFriends.setAdapter(friendsListAdapter);
+        rvRequests.setAdapter(friendRequestAdapter);
         rvFriends.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvRequests.setLayoutManager(new LinearLayoutManager(getContext()));
         updateView();
+
+
     }
 
     private void updateView() {
@@ -96,6 +104,7 @@ public class ProfileFragment extends Fragment implements IUserProfileEventListne
             }
         });
         IUserProfileRepository repository = UserProfileParseRepository.getInstance();
+        repository.fetchFriendRequests(this);
         repository.fetchFriendsList(this);
     }
 
@@ -117,5 +126,30 @@ public class ProfileFragment extends Fragment implements IUserProfileEventListne
     @Override
     public void updateRvFriendsList() {
         friendsListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void loadLatestFriendsList() {
+        IUserProfileRepository repository = UserProfileParseRepository.getInstance();
+        repository.fetchFriendsList(this);
+    }
+
+    @Override
+    public void fetchFriendRequestsSuccessful(List<Friends> newFriendRequests) {
+        friendRequests.clear();
+        friendRequests.addAll(newFriendRequests);
+        updateRvFriendRequests();
+    }
+
+    @Override
+    public void fetchFriendRequestsFailed(Exception e) {
+        if (e != null) {
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG);
+        }
+    }
+
+    @Override
+    public void updateRvFriendRequests() {
+        friendRequestAdapter.notifyDataSetChanged();
     }
 }
