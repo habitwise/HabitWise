@@ -79,7 +79,7 @@ public class ProfileFragment extends Fragment implements IUserProfileEventListne
         friends = new ArrayList<>();
         friendRequests = new ArrayList<>();
         friendsListAdapter = new FriendsListAdapter(getContext(), friends);
-        friendRequestAdapter = new FriendRequestAdapter(getContext(), friendRequests);
+        friendRequestAdapter = new FriendRequestAdapter(getContext(), friendRequests, this);
         rvFriends.setAdapter(friendsListAdapter);
         rvRequests.setAdapter(friendRequestAdapter);
         rvFriends.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -126,6 +126,12 @@ public class ProfileFragment extends Fragment implements IUserProfileEventListne
     @Override
     public void updateRvFriendsList() {
         friendsListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void loadLatestFriendsList() {
+        IUserProfileRepository repository = UserProfileParseRepository.getInstance();
+        repository.fetchFriendsList(this);
     }
 
     @Override

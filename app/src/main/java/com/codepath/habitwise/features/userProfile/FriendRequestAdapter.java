@@ -26,11 +26,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdapter.ViewHolder> {
     Context context;
     List<Friends> friends;
+    IUserProfileEventListner eventListner;
     private static final String TAG = "FRIEND_REQUEST_ADAPTER";
 
-    public FriendRequestAdapter(Context context, List<Friends> friends){
+    public FriendRequestAdapter(Context context, List<Friends> friends, IUserProfileEventListner eventListner){
         this.context = context;
         this.friends = friends;
+        this.eventListner = eventListner;
     }
 
     @NonNull
@@ -74,6 +76,9 @@ class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdapter.Vie
                     friend.setStatus("Accepted");
                     try {
                         friend.save();
+                        friends.remove(friend);
+                        notifyDataSetChanged();
+                        eventListner.loadLatestFriendsList();
                     } catch (ParseException e) {
                         Log.e(TAG, "Error while updating", e);
                     }
@@ -85,6 +90,8 @@ class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdapter.Vie
                     friend.setStatus("Declined");
                     try {
                         friend.save();
+                        friends.remove(friend);
+                        notifyDataSetChanged();
                     } catch (ParseException e) {
                         Log.e(TAG, "Error while updating", e);
                     }

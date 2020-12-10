@@ -9,6 +9,7 @@ public interface IUserProfileEventListner {
     void fetchFriendsListSuccessful(List<ParseUser> newFriendsList);
     void fetchFriendsListFailed(Exception e);
     void updateRvFriendsList();
+    void loadLatestFriendsList();
 
     void fetchFriendRequestsSuccessful(List<Friends> newFriendRequests);
     void fetchFriendRequestsFailed(Exception e);
