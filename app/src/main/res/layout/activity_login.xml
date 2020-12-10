@@ -5,8 +5,9 @@
     android:id="@+id/viewLogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/veryLightGrey"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="24dp"
     tools:context=".features.loginSignup.LoginActivity">
 
     <LinearLayout
@@ -14,31 +15,53 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            app:srcCompat="@drawable/ic_habitwise_logo" />
+
         <EditText
             android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
-            android:inputType="textPersonName" />
-
+            android:inputType="textPersonName"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:background="@drawable/edittext_background"
+            />
 
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:background="@drawable/edittext_background"
+            />
 
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login" />
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_accent"
+            android:text="Log in"
+            android:textColor="#FFFFFF"/>
 
         <Button
             android:id="@+id/btnSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/signup" />
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_light"
+            android:text="Sign up" />
+
+
     </LinearLayout>
 </LinearLayout>
