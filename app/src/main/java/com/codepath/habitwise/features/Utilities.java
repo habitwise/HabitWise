@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Utilities {
 
@@ -79,4 +81,13 @@ public class Utilities {
         return calendar;
     }
 
+    public static boolean isValidEmail(String email) {
+        if (email == null) {
+            return false;
+        }
+        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher m = pattern.matcher(email);
+        return m.matches();
+    }
 }

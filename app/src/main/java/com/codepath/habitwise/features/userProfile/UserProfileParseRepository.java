@@ -81,4 +81,24 @@ public class UserProfileParseRepository implements IUserProfileRepository{
             }
         });
     }
+
+    public void fetchFriendRequests(final IUserProfileEventListner eventListner) {
+        final List<Friends> friendsRqs = new ArrayList<>();
+        ParseQuery<Friends> query = ParseQuery.getQuery(Friends.class);
+        query.include(Friends.KEY_FROM_USER);
+        query.whereEqualTo(Friends.KEY_TO_USER, ParseUser.getCurrentUser());
+        query.whereContains(Friends.KEY_STATUS, "Pending");
+        query.findInBackground(new FindCallback<Friends>() {
+            @Override
+            public void done(List<Friends> objects, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG,"Error while fetching to user: " + e.getMessage());
+                    eventListner.fetchFriendRequestsFailed(e);
+                    return;
+                }
+                friendsRqs.addAll(objects);
+                eventListner.fetchFriendRequestsSuccessful(friendsRqs);
+            }
+        });
+    }
 }

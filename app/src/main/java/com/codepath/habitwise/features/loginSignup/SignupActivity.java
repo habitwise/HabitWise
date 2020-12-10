@@ -215,7 +215,8 @@ public class SignupActivity extends AppCompatActivity implements ISignupEventLis
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode != RESULT_CANCELED) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_CANCELED) {
             switch (requestCode) {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
@@ -226,7 +227,7 @@ public class SignupActivity extends AppCompatActivity implements ISignupEventLis
                     break;
                 case 1:
                     if (resultCode == RESULT_OK && data != null) {
-                        Uri selectedImage =  data.getData();
+                        Uri selectedImage = data.getData();
                         String[] filePathColumn = {MediaStore.Images.Media.DATA};
                         if (selectedImage != null) {
                             Cursor cursor = getContentResolver().query(selectedImage,
