@@ -329,28 +329,21 @@ public class AddHabitActivity extends AppCompatActivity implements IUserProfileE
 
     @Override
     public void loadLatestFriendsList() {
-        IUserProfileRepository repository = UserProfileParseRepository.getInstance();
-        repository.fetchFriendsList(this);
+
     }
 
     @Override
     public void fetchFriendRequestsSuccessful(List<Friends> newFriendRequests) {
-//        friendRequests.clear();
-//        friendRequests.addAll(newFriendRequests);
-//        updateRvFriendRequests();
+
     }
 
     @Override
     public void fetchFriendRequestsFailed(Exception e) {
-//        if (e != null) {
-//            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG);
-//        }
+
     }
 
     @Override
     public void updateRvFriendRequests() {
 
-  //      friendRequestAdapter.notifyDataSetChanged();
     }
-
 }

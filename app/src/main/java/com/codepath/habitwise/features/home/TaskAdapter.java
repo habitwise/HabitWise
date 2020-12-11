@@ -17,22 +17,24 @@ import com.codepath.habitwise.models.Habit;
 import com.codepath.habitwise.models.Task;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
-
+import java.util.Calendar;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     private Context context;
     private List<Task> tasks;
+    private OnTaskListener globalOnTaskListener;
     public static final String TAG = "TaskAdapter";
-    public TaskAdapter(Context context , List<Task> tasks) {
+    public TaskAdapter(Context context , List<Task> tasks , OnTaskListener onTaskListener) {
         this.context= context;
         this.tasks= tasks;
+        this.globalOnTaskListener = onTaskListener;
     }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_task, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, globalOnTaskListener);
     }
 
     @Override
@@ -46,7 +48,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         return tasks.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView tvTitle;
         private TextView tvInfo;
         private Switch toggleSwitch;
@@ -60,9 +62,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         private  int count = 0;
         private String stringCount;
         private Habit habitObject;
+        private Task taskObject;
         private List<Habit> results;
+        OnTaskListener onTaskListener;
 
-        public ViewHolder( @NonNull View itemView) {
+        public ViewHolder( @NonNull View itemView , OnTaskListener onTaskListener) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvInfo = itemView.findViewById(R.id.tvInfo);
@@ -71,10 +75,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             incrementButton = itemView.findViewById(R.id.incrementButton);
             textViewCounter = itemView.findViewById(R.id.textViewCounter);
             decrementButton = itemView.findViewById(R.id.decrementButton);
-
+            this.onTaskListener = onTaskListener;
+            itemView.setOnClickListener(this);
         }
 
         public void bind(final Task task) {
+            taskObject = task;
             count = task.getCounter();
             habitObject = task.getHabit();
             stringCount = Integer.toString(count);
@@ -89,7 +95,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                     toggleSwitch.setChecked(true);
                 else
                     toggleSwitch.setChecked(false);
-                description += "Once a day";
+                description += "Once";
 
                 toggleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
@@ -101,7 +107,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 });
             }
             else {
-                description += frequency + " times a day";
+                description += frequency + " times";
                 textViewCounter.setText(stringCount);
                 toggleSwitch.setVisibility(View.GONE);
                 counterBox.setVisibility(View.VISIBLE);
@@ -134,14 +140,23 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 });
             }
             if (recurrence== 0){
-                description += ", everyday!";
+                description += " everyday!";
             }
             else{
-                description += ", weekly!";
+                description += " a day, weekly!";
 //                Log.i(TAG,"fetching days:" + habit.getDays().getClass().getName());
 //                Log.i(TAG,"fetching days:" + habit.getDays());
             }
             tvInfo.setText(description);
         }
+        @Override
+        public void onClick(View view) {
+            onTaskListener.onTaskClick(habitObject , taskObject );
+
+        }
+    }
+    public interface OnTaskListener{
+        void onTaskClick ( Habit habitObj , Task task );
+
     }
 }

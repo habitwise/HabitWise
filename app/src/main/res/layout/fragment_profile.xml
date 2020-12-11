@@ -70,7 +70,7 @@
                 android:paddingBottom="10dp"
                 android:text="Friend Requests"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#000000"
                 android:textStyle="bold"/>
 
             <androidx.recyclerview.widget.RecyclerView

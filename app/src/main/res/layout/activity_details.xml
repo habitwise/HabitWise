@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="vertical"
+        android:scrollbars="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Drink Water"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"></TextView>
+
+        <TextView
+            android:id="@+id/tvInfo"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            android:text="5 times everyday!  "></TextView>
+
+        <Switch
+            android:id="@+id/toggleSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <RelativeLayout
+            android:id="@+id/counterBox"
+            android:layout_width="fill_parent"
+            android:layout_height="44dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/decrementButton"
+                android:layout_width="49dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:text="-" />
+
+            <TextView
+                android:id="@+id/textViewCounter"
+                android:layout_width="50dp"
+                android:layout_height="fill_parent"
+                android:layout_alignBottom="@+id/decrementButton"
+                android:layout_toRightOf="@+id/decrementButton"
+                android:gravity="center"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/incrementButton"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:layout_toRightOf="@+id/textViewCounter"
+                android:text="+" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/FriendsBox"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/customborder"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/youTextBox"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:gravity="center"
+                android:text="You" />
+
+
+            <TextView
+                android:id="@+id/youCompleteBox"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:layout_below="@id/youTextBox"
+                android:layout_alignLeft="@id/youTextBox"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentRight="false"
+                android:layout_marginStart="-10dp"
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                android:text="1/4 completed" />
+
+            <TextView
+                android:id="@+id/currentStreakBox"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:layout_alignBottom="@+id/youTextBox"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_toRightOf="@+id/youTextBox"
+                android:gravity="center"
+                android:text="7 days" />
+
+
+            <TextView
+                android:id="@+id/friendsTextBox"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:layout_toRightOf="@+id/currentStreakBox"
+                android:gravity="center"
+                android:text="John"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/friendsCompleteBox"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:layout_below="@id/friendsTextBox"
+                android:layout_alignLeft="@id/friendsTextBox"
+                android:layout_toRightOf="@+id/youCompleteBox"
+                android:text="4/4 completed"
+                android:visibility="invisible" />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvAllTime"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            android:text="Your All Time Stats "></TextView>
+
+        <RelativeLayout
+            android:id="@+id/statisticsBox"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/customborder"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/bestStreakBox"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:gravity="center"
+                android:text="37" />
+
+
+            <TextView
+                android:id="@+id/bestStreakText"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/bestStreakBox"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                android:text="Best Streak" />
+
+            <TextView
+                android:id="@+id/allTimeBox"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:layout_alignBottom="@+id/bestStreakBox"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp"
+                android:layout_toRightOf="@+id/bestStreakBox"
+                android:gravity="center"
+                android:text="77.3 %" />
+
+            <TextView
+                android:id="@+id/allTimeText"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_below="@id/allTimeBox"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_toRightOf="@+id/bestStreakText"
+                android:gravity="center"
+                android:text="All Time" />
+
+
+            <TextView
+                android:id="@+id/completionsBox"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="3dp"
+                android:layout_toRightOf="@+id/allTimeBox"
+                android:gravity="center"
+                android:text=" 49 / 80" />
+
+            <TextView
+                android:id="@+id/completionsText"
+                android:layout_width="80dp"
+                android:layout_height="25dp"
+                android:layout_below="@id/completionsBox"
+                android:layout_toRightOf="@+id/allTimeText"
+                android:gravity="center"
+                android:text="Completions" />
+        </RelativeLayout>
+
+        <com.applandeo.materialcalendarview.CalendarView
+            android:id="@+id/calendarViewDetails"
+            android:layout_width="333dp"
+            android:layout_height="345dp"
+            app:headerColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:type="many_days_picker"
+            app:eventsEnabled="true"
+            app:highlightedDaysLabelsColor = "@color/purple"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:selectionColor="@color/colorAccent"
+            app:todayLabelColor="@color/colorPrimaryDark"
+            />
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="EDIT" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="DELETE" />
+
+        <Button
+            android:id="@+id/btnComplete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="COMPLETE" />
+
+
+    </LinearLayout>
+</ScrollView>

@@ -26,6 +26,7 @@
         </activity>
         <activity android:name=".features.addUpdateHabit.AddHabitActivity"></activity>
         <activity android:name=".features.MainActivity"></activity>
+        <activity android:name=".features.habitDetails.detailsActivity"></activity>
         <activity android:name=".features.loginSignup.SignupActivity"></activity>
     </application>
 
