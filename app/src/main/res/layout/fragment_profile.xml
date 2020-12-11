@@ -20,10 +20,9 @@
     <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="36dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/ivUserProfileImage"
@@ -37,6 +36,7 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:paddingTop="15dp"
             android:paddingBottom="5dp"
             android:text="FirstName LastName"
@@ -46,6 +46,14 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log out"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_light"
+        />
         <LinearLayout
             android:id="@+id/layoutRequests"
             android:layout_width="match_parent"
@@ -89,7 +97,7 @@
             android:paddingBottom="10dp"
             android:text="Friends"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#000000"
+            android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -109,6 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
+        android:tint="@android:color/white"
         android:contentDescription="@string/add_friend"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

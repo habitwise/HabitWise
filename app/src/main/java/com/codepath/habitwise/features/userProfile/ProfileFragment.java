@@ -1,5 +1,6 @@
 package com.codepath.habitwise.features.userProfile;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -7,10 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.habitwise.R;
+import com.codepath.habitwise.features.loginSignup.LoginActivity;
 import com.codepath.habitwise.features.Utilities;
 import com.codepath.habitwise.models.Friends;
 import com.codepath.habitwise.objectKeys.ObjParseUser;
@@ -47,6 +50,7 @@ public class ProfileFragment extends Fragment implements IUserProfileEventListne
     private TextView tvName;
     private SwipeRefreshLayout swipeContainer;
     private CircleImageView displayPic;
+    private Button btnLogout;
     private RecyclerView rvRequests;
     private TextView tvRequests;
     private FloatingActionButton fabAddFriend;
@@ -70,6 +74,7 @@ public class ProfileFragment extends Fragment implements IUserProfileEventListne
         rvFriends = view.findViewById(R.id.rvFriends);
         tvName = view.findViewById(R.id.tvName);
         displayPic = view.findViewById(R.id.ivUserProfileImage);
+        btnLogout = view.findViewById(R.id.btnLogout);
         tvRequests = view.findViewById(R.id.tvRequests);
         rvRequests = view.findViewById(R.id.rvRequests);
         fabAddFriend = view.findViewById(R.id.fabAddFriend);
@@ -145,7 +150,16 @@ public class ProfileFragment extends Fragment implements IUserProfileEventListne
         rvRequests.setLayoutManager(new LinearLayoutManager(getContext()));
         updateView();
 
-
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Logging out", Toast.LENGTH_LONG).show();
+                ParseUser.logOut();
+                Intent i = new Intent(getContext(), LoginActivity.class);
+                startActivity(i);
+                getActivity().finish(); //remove from stack
+            }
+        });
     }
 
     private void updateView() {

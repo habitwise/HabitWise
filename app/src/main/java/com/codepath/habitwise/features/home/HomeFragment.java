@@ -1,5 +1,6 @@
 package com.codepath.habitwise.features.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.codepath.habitwise.R;
 import com.codepath.habitwise.features.Utilities;
+import com.codepath.habitwise.features.habitDetails.detailsActivity;
 import com.codepath.habitwise.models.Habit;
 import com.codepath.habitwise.models.Task;
 import com.michalsvec.singlerowcalendar.calendar.CalendarChangesObserver;
@@ -39,7 +41,7 @@ import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.HorizontalCalendarView;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
-public class HomeFragment extends Fragment implements IHomeEventListner{
+public class HomeFragment extends Fragment implements IHomeEventListner , TaskAdapter.OnTaskListener{
 
     public static final String TAG = "HOME_FRAGMENT";
     public List<Habit> habits;
@@ -105,7 +107,7 @@ public class HomeFragment extends Fragment implements IHomeEventListner{
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         rvTasks = view.findViewById(R.id.rvTasks);
-        taskAdapter = new TaskAdapter(getContext(),tasks);
+        taskAdapter = new TaskAdapter(getContext(),tasks,this);
         rvTasks.setAdapter(taskAdapter);
         GridLayoutManager manager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         rvTasks.setLayoutManager(manager);
@@ -134,4 +136,14 @@ public class HomeFragment extends Fragment implements IHomeEventListner{
         Log.e(TAG, "Error occured", e);
     }
 
+    @Override
+    public void onTaskClick(Habit habitObject , Task taskObject ) {
+
+        Intent intent = new Intent(getContext(), detailsActivity.class);
+        intent.putExtra("habit", habitObject);
+        intent.putExtra("task", taskObject);
+        startActivity(intent);
+
+
+    }
 }

@@ -21,7 +21,7 @@ import com.parse.ParseUser;
 public class AnalysisFragment extends Fragment {
     private Habit emptyHabit;
     private Button btnNewHabit;
-    private Button btnLogout;
+
 
     public AnalysisFragment() {
         // Required empty public constructor
@@ -40,7 +40,7 @@ public class AnalysisFragment extends Fragment {
 
         emptyHabit = new Habit();
         btnNewHabit = view.findViewById(R.id.btnNewHabit);
-        btnLogout = view.findViewById(R.id.btnLogout);
+
 
         btnNewHabit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -50,16 +50,6 @@ public class AnalysisFragment extends Fragment {
             }
         });
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Logging out", Toast.LENGTH_LONG).show();
-                ParseUser.logOut();
-                Intent i = new Intent(getContext(), LoginActivity.class);
-                startActivity(i);
-                getActivity().finish(); //remove from stack
-            }
-        });
     }
 
 }
