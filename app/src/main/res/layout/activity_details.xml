@@ -2,7 +2,7 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/calenda"
+    android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-
         android:orientation="vertical"
         android:scrollbars="vertical">
 
@@ -30,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="8dp"
-            android:text="5 times everyday! (fake data) "></TextView>
+            android:text="5 times everyday!  "></TextView>
 
         <Switch
             android:id="@+id/toggleSwitch"
@@ -111,7 +110,7 @@
                 android:text="1/4 completed" />
 
             <TextView
-                android:id="@+id/textStreak"
+                android:id="@+id/currentStreakBox"
                 android:layout_width="50dp"
                 android:layout_height="25dp"
                 android:layout_alignBottom="@+id/youTextBox"
@@ -128,7 +127,7 @@
                 android:layout_height="25dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="0dp"
-                android:layout_toRightOf="@+id/textStreak"
+                android:layout_toRightOf="@+id/currentStreakBox"
                 android:gravity="center"
                 android:text="John"
                 android:visibility="invisible" />
@@ -176,7 +175,7 @@
 
 
             <TextView
-                android:id="@+id/currentStreakBox"
+                android:id="@+id/bestStreakText"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_below="@id/bestStreakBox"
@@ -197,15 +196,15 @@
                 android:text="77.3 %" />
 
             <TextView
-                android:id="@+id/todayBox"
+                android:id="@+id/allTimeText"
                 android:layout_width="70dp"
                 android:layout_height="25dp"
                 android:layout_below="@id/allTimeBox"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
-                android:layout_toRightOf="@+id/currentStreakBox"
+                android:layout_toRightOf="@+id/bestStreakText"
                 android:gravity="center"
-                android:text=" All Time" />
+                android:text="All Time" />
 
 
             <TextView
@@ -219,19 +218,14 @@
                 android:text=" 49 / 80" />
 
             <TextView
-                android:id="@+id/dayCompletions"
+                android:id="@+id/completionsText"
                 android:layout_width="80dp"
                 android:layout_height="25dp"
                 android:layout_below="@id/completionsBox"
-                android:layout_toRightOf="@+id/todayBox"
+                android:layout_toRightOf="@+id/allTimeText"
                 android:gravity="center"
                 android:text="Completions" />
-
-
         </RelativeLayout>
-
-
-
 
         <com.applandeo.materialcalendarview.CalendarView
             android:id="@+id/calendarViewDetails"
@@ -240,9 +234,14 @@
             app:headerColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:type="many_days_picker"
+            app:eventsEnabled="true"
+            app:highlightedDaysLabelsColor = "@color/purple"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:selectionColor="@color/colorAccent"
+            app:todayLabelColor="@color/colorPrimaryDark"
+            />
 
         <Button
             android:id="@+id/btnEdit"

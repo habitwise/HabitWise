@@ -14,31 +14,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.codepath.habitwise.R;
 import com.codepath.habitwise.features.Utilities;
 import com.codepath.habitwise.features.habitDetails.detailsActivity;
 import com.codepath.habitwise.models.Habit;
 import com.codepath.habitwise.models.Task;
-import com.michalsvec.singlerowcalendar.calendar.CalendarChangesObserver;
-import com.michalsvec.singlerowcalendar.calendar.CalendarViewManager;
-import com.michalsvec.singlerowcalendar.calendar.SingleRowCalendar;
-import com.michalsvec.singlerowcalendar.calendar.SingleRowCalendarAdapter;
-import com.michalsvec.singlerowcalendar.utils.DateUtils;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
-import devs.mulham.horizontalcalendar.HorizontalCalendarView;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
 public class HomeFragment extends Fragment implements IHomeEventListner , TaskAdapter.OnTaskListener{
@@ -107,7 +94,7 @@ public class HomeFragment extends Fragment implements IHomeEventListner , TaskAd
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         rvTasks = view.findViewById(R.id.rvTasks);
-        taskAdapter = new TaskAdapter(getContext(),tasks,this);
+        taskAdapter = new TaskAdapter(getContext(),tasks , this);
         rvTasks.setAdapter(taskAdapter);
         GridLayoutManager manager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         rvTasks.setLayoutManager(manager);
@@ -138,12 +125,10 @@ public class HomeFragment extends Fragment implements IHomeEventListner , TaskAd
 
     @Override
     public void onTaskClick(Habit habitObject , Task taskObject ) {
-
         Intent intent = new Intent(getContext(), detailsActivity.class);
         intent.putExtra("habit", habitObject);
         intent.putExtra("task", taskObject);
         startActivity(intent);
-
 
     }
 }

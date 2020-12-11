@@ -1,22 +1,22 @@
 package com.codepath.habitwise.features.habitDetails;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.codepath.habitwise.R;
 import com.codepath.habitwise.models.Habit;
 import com.codepath.habitwise.models.HabitUserMapping;
 import com.codepath.habitwise.models.Task;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -28,7 +28,6 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 
-//import android.widget.CalendarView;
 
 public class detailsActivity extends AppCompatActivity {
     public static final String TAG = "detailsActivity";
@@ -41,20 +40,14 @@ public class detailsActivity extends AppCompatActivity {
     private TextView textViewCounter;
     private Button decrementButton;
 
-    private RelativeLayout FriendsBox;
-    private TextView youTextBox;
     private TextView youCompleteBox;
-    private TextView textStreak;
+    private TextView currentStreakBox;
     private TextView friendsTextBox;
     private TextView friendsCompleteBox;
 
-    private RelativeLayout statisticsBox;
     private TextView bestStreakBox;
-    private TextView currentStreakBox;
     private TextView allTimeBox;
-    private TextView todayBox;
     private TextView completionsBox;
-    private TextView dayCompletions;
 
     private CalendarView mCalendarView;
     private Button btnEdit;
@@ -78,10 +71,7 @@ public class detailsActivity extends AppCompatActivity {
     private int totalTasksCount = 0;
     private int totalDaysCount = 0;
     private int bestStreak = 0;
-
-    public static final String RESULT = "result";
-    public static final String EVENT = "event";
-    private static final int ADD_NOTE = 44;
+    private int currentStreak = 0;
 
     private List<EventDay> mEventDaysDone = new ArrayList<>();
     private List<EventDay> mEventDaysIncomplete = new ArrayList<>();
@@ -91,7 +81,10 @@ public class detailsActivity extends AppCompatActivity {
 
      List<Task> userTaskList = new ArrayList<>();
      List<Task> friendTaskList = new ArrayList<>();
+    List<Date> userDatesList = new ArrayList<>();
+    List<Date> friendDatesList = new ArrayList<>();
     List<Date> datesList = new ArrayList<>();
+    List<HabitUserMapping> friends = new ArrayList<>();
 
     ParseUser friendObject;
     ParseUser userObject;
@@ -101,24 +94,16 @@ public class detailsActivity extends AppCompatActivity {
     Date dateObject;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        //mCalendarView = (CalendarView) findViewById(R.id.calendarView);
         habitObject = getIntent().getParcelableExtra("habit");
         userTodayTaskObject = getIntent().getParcelableExtra("task");
         dateObject = userTodayTaskObject.getTaskDate();
         userObject = ParseUser.getCurrentUser();
         queryTasks();
-
-
         init();
-
-
-
     }
 
     public void init() {
@@ -131,28 +116,19 @@ public class detailsActivity extends AppCompatActivity {
         textViewCounter = findViewById(R.id.textViewCounter);
         decrementButton = findViewById(R.id.decrementButton);
 
-        FriendsBox = findViewById(R.id.FriendsBox);
-        youTextBox = findViewById(R.id.youTextBox);
         youCompleteBox = findViewById(R.id.youCompleteBox);
-        textStreak = findViewById(R.id.textStreak);
+        currentStreakBox = findViewById(R.id.currentStreakBox);
         friendsTextBox = findViewById(R.id.friendsTextBox);
         friendsCompleteBox = findViewById(R.id.friendsCompleteBox);
 
-        statisticsBox = findViewById(R.id.statisticsBox);
         bestStreakBox = findViewById(R.id.bestStreakBox);
-      //  currentStreakBox = findViewById(R.id.currentStreakBox);
         allTimeBox = findViewById(R.id.allTimeBox);
-     //   todayBox = findViewById(R.id.todayBox);
         completionsBox = findViewById(R.id.completionsBox);
-       // dayCompletions = findViewById(R.id.dayCompletions);
-
         mCalendarView =  findViewById(R.id.calendarViewDetails);
 
         btnEdit = findViewById(R.id.btnEdit);
         btnDelete = findViewById(R.id.btnDelete);
         btnComplete = findViewById(R.id.btnComplete);
-
-
         populate_habitDetails();
         populateBanner();
         populateStatistics();
@@ -164,42 +140,55 @@ public class detailsActivity extends AppCompatActivity {
         userCounter = userTodayTaskObject.getCounter();
         userStringCount = Integer.toString(userCounter);
         description = "";
-        Log.d(TAG, "title value..." + habitObject.getTitle() );
         tvTitle.setText(habitObject.getTitle());
         frequency = habitObject.getFrequency();
         recurrence = habitObject.getRecurrence();
         if (frequency == 1){
+            toggleSwitch.setVisibility(View.VISIBLE);
             counterBox.setVisibility(View.GONE);
             if (userCounter == 1)
                 toggleSwitch.setChecked(true);
             else
                 toggleSwitch.setChecked(false);
             description += "Once a day";
+
+            toggleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) userTodayTaskObject.setCounter(1);
+                    else userTodayTaskObject.setCounter(0);
+                    userTodayTaskObject.saveInBackground();
+                }
+            });
         }
         else {
             description += frequency + " times a day";
             textViewCounter.setText(userStringCount);
             toggleSwitch.setVisibility(View.GONE);
+            counterBox.setVisibility(View.VISIBLE);
             decrementButton.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-
                     Log.d(TAG, "Decreasing value...");
+                    if (userCounter - 1 < 0) return;
                     userCounter--;
                     userStringCount = Integer.toString(userCounter);
                     textViewCounter.setText(userStringCount);
+                    userTodayTaskObject.setCounter(userCounter);
+                    userTodayTaskObject.saveInBackground();
                 }
             });
             incrementButton.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-
                     Log.d(TAG, "Increasing value...");
                     userCounter++;
                     userStringCount = Integer.toString(userCounter);
                     textViewCounter.setText(userStringCount);
+                    userTodayTaskObject.setCounter(userCounter);
+                    userTodayTaskObject.saveInBackground();
                 }
             });
         }
@@ -208,8 +197,6 @@ public class detailsActivity extends AppCompatActivity {
         }
         else{
             description += ", weekly!";
-//                Log.i(TAG,"fetching days:" + habit.getDays().getClass().getName());
-//                Log.i(TAG,"fetching days:" + habit.getDays());
         }
         tvInfo.setText(description);
             }
@@ -224,19 +211,17 @@ public class detailsActivity extends AppCompatActivity {
             friendTaskCompletion = "";
             friendTaskCompletion += friendCounter + "/" + frequency + " completed";
             friendsCompleteBox.setText(friendTaskCompletion);
+            friendsTextBox.setVisibility(View.VISIBLE);
+            friendsCompleteBox.setVisibility(View.VISIBLE);
             friendsTextBox.setText(friendObject.getUsername());
         }
-
-
     }
 
     protected void queryTasks(){
         queryUserTasks(  );
         if (habitObject.getShared()){
-            friendsTextBox.setVisibility(View.VISIBLE);
-            friendsCompleteBox.setVisibility(View.VISIBLE);
             friendObject = queryFriend();
-            queryFriendTasks();
+            queryFriendTasks(friendObject);
         }
 
     }
@@ -247,20 +232,14 @@ public class detailsActivity extends AppCompatActivity {
         friendTasksQuery.include(HabitUserMapping.key_user);
         friendTasksQuery.whereEqualTo(HabitUserMapping.key_habit, habitObject);
         friendTasksQuery.whereNotEqualTo(HabitUserMapping.key_user,ParseUser.getCurrentUser() );
-//        friendTasksQuery.find()
-        friendTasksQuery.findInBackground(new FindCallback<HabitUserMapping>() {
-            @Override
-            public void done(List<HabitUserMapping> friends, ParseException e) {
-                if (e != null){
-                    Log.e(TAG, "Issue with getting friends",e);
-                    return;
-                }
-                for (HabitUserMapping friend : friends) {
-                    friendObject = friend.getUser();
-                    Log.d("task", "retrieved  friends" + friends.size());
-                }
-            }
-        });
+        try {
+            friends = friendTasksQuery.find();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        for ( HabitUserMapping friend : friends){
+            friendObject = friend.getUser();
+        }
         return friendObject;
     }
 
@@ -278,22 +257,10 @@ public class detailsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         Log.i(TAG, "in query user tasks");
-//        taskQuery.findInBackground(new FindCallback<Task>() {
-//            @Override
-//            public void done(List<Task> tasks, ParseException e) {
-//                if (e != null){
-//                    Log.e(TAG, "Issue with getting tasks",e);
-//                    return;
-//                }
-//                for (Task task : tasks) {
-//                    Log.d(TAG, "retrieved a related user's task" + tasks.size() + task.getTaskDate());
-//                }
-//                userTaskList.addAll(tasks);
-//            }
-//        });
+
     }
 
-    protected void queryFriendTasks() {
+    protected void queryFriendTasks(ParseUser friendObject) {
         ParseQuery<Task> taskQuery = ParseQuery.getQuery(Task.class);
         taskQuery.include(Task.key_habit);
         taskQuery.include(Task.key_user);
@@ -306,39 +273,28 @@ public class detailsActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-//        taskQuery.findInBackground(new FindCallback<Task>() {
-//            @Override
-//            public void done(List<Task> tasks, ParseException e) {
-//                if (e != null){
-//                    Log.e(TAG, "Issue with getting tasks",e);
-//                    return;
-//                }
-//                for (Task task : tasks) {
-//                    Log.d(TAG, "retrieved a related user's task" + tasks.size() + task.getTaskDate());
-//                }
-//                friendTaskList.addAll(tasks);
-//            }
-//        });
+        boolean saveTask = true;
 
-        ParseQuery<Task>  query = ParseQuery.getQuery(Task.class);
-        query.include(Task.key_habit);
-        query.include(Task.key_user);
-        query.whereEqualTo(Task.key_user, friendObject );
-        query.whereEqualTo(Task.key_habit, habitObject);
-        query.whereEqualTo(Task.key_task_date, dateObject);
-        query.findInBackground(new FindCallback<Task>() {
-            @Override
-            public void done(List<Task> tasks, ParseException e) {
-                if (e != null){
-                    Log.e(TAG, "Issue with getting friend's today task",e);
-                    return;
-                }
-                for (Task task : tasks) {
-                    friendTodayTask = task;
-                    Log.d(TAG, "retrieved a related friend's today task" + tasks.size() + task.getTaskDate());
-                }
+
+        for(Task friendTask : friendTaskList){
+            if(friendTask.getTaskDate().equals(dateObject)){
+                friendTodayTask = friendTask;
+                saveTask = false;
+                break;
             }
-        });
+        }
+        if(saveTask){
+            Task newTask = new Task();
+            newTask.setCounter(0);
+            newTask.setHabit(habitObject);
+            newTask.setUser(friendObject);
+            newTask.setTaskDate(dateObject);
+            newTask.saveInBackground();
+            friendTaskList.add(newTask);
+            friendTodayTask = newTask;
+        }
+
+
     }
 
 
@@ -346,80 +302,78 @@ public class detailsActivity extends AppCompatActivity {
     protected void populateStatistics( ) {
         Calendar cal1 = new GregorianCalendar();
         Calendar cal2 = new GregorianCalendar();
-//        cal1.setTime(habitObject.getCreatedAt());
-//        cal2.setTime(dateObject);
 
         cal1.set(habitObject.getCreatedAt().getYear(), habitObject.getCreatedAt().getMonth(),habitObject.getCreatedAt().getDate());
         cal2.set(dateObject.getYear(),dateObject.getMonth(),dateObject.getDate());
 
-        Log.i(TAG, "cal1" + habitObject.getCreatedAt() + "cal2" + dateObject);
         int totalDays = (int)((cal2.getTime().getTime() - cal1.getTime().getTime())  / (1000 * 60 * 60 * 24) + 1) ;
 
-        Log.i(TAG, "total days first" + totalDays);
         if (totalDays > 7){
         int totalWeeks = totalDays /7;
-            Log.i(TAG, "total totalWeeks" + totalWeeks);
         totalDaysCount = totalWeeks * habitObject.getDays().size();
-            Log.i(TAG, "total totalDaysCount" + totalDaysCount);
         totalDays = totalDays - totalWeeks*7;
-            Log.i(TAG, "total days" + totalDays);}
+        }
         int dayOfWeek2 = cal2.get(Calendar.DAY_OF_WEEK);
         int dayOfWeek1 = dayOfWeek2 - totalDays + 1 ;
-        Log.i(TAG, "total days" + totalDays);
         for ( int i = dayOfWeek1 ; i <= dayOfWeek2 ; i++){
             if( habitObject.getDays().contains(i)){
                   totalDaysCount += 1;
             }
             }
-        Log.i(TAG, "total days" + totalDays);
         totalTasksCount = frequency * totalDaysCount;
-        Log.i(TAG, "total days" + totalDays);
         for (Task task : userTaskList) {
             userTasksCompleted += task.getCounter();
             if (task.getCounter() >= task.getHabit().getFrequency()) {
-                userDaysCompleted += 1;
+                Date date = task.getTaskDate();
+                Calendar temp_cal = new GregorianCalendar();
+                temp_cal.setTime(date);
+                temp_cal.clear(Calendar.HOUR_OF_DAY);
+                temp_cal.clear(Calendar.MINUTE);
+                temp_cal.clear(Calendar.SECOND);
+                temp_cal.clear(Calendar.MILLISECOND);
+                userDatesList.add(temp_cal.getTime());
             }
         }
-        Log.i(TAG, "userTasksCompleted" + userTasksCompleted + "userDaysCompleted" + userDaysCompleted);
 
         for (Task friendTask : friendTaskList) {
             friendTasksCompleted += friendTask.getCounter();
             if (friendTask.getCounter() >= friendTask.getHabit().getFrequency()) {
-                friendDaysCompleted += 1;
+                Date date = friendTask.getTaskDate();
+                Calendar temp_cal = new GregorianCalendar();
+                temp_cal.setTime(date);
+                temp_cal.clear(Calendar.HOUR_OF_DAY);
+                temp_cal.clear(Calendar.MINUTE);
+                temp_cal.clear(Calendar.SECOND);
+                temp_cal.clear(Calendar.MILLISECOND);
+                friendDatesList.add(temp_cal.getTime());
             }
         }
-        Log.i(TAG, "total days" + totalDays);
         int total = userTasksCompleted + friendTasksCompleted;
-        Log.i(TAG, "total days" + totalDays);
         completionsBox.setText(Integer.toString(total) + "/" + totalTasksCount);
         float percent = (total / totalTasksCount) * 100;
         allTimeBox.setText(Float.toString(percent)+" %");
 
-        for (Task task : userTaskList) {
-            datesList.add(task.getTaskDate());
-                    }
-        bestStreak = longestConsecutive(datesList);
-        bestStreakBox.setText(Integer.toString(bestStreak));
+        if(habitObject.getShared()){
+        userDatesList.retainAll(friendDatesList);
 
 
-//        Calendar calendar = Calendar.getInstance();
-        for (Task eachTask : userTaskList){
-            Date date = eachTask.getTaskDate();
-            Calendar temp_cal = new GregorianCalendar();
-            temp_cal.setTime(date);
-            mEventDaysDone.add(new EventDay(temp_cal));
         }
-        Calendar a = new GregorianCalendar();
-        Calendar b = new GregorianCalendar();
-        a.set(2020,12,7);
-        b.set(2020,12,16);
-        mEventDaysDone.add(new EventDay(a));
-        mEventDaysDone.add(new EventDay(b));
+        userDatesList.sort((d1,d2) -> d1.compareTo(d2));
+
+        bestStreak = longestConsecutive(userDatesList);
+        bestStreakBox.setText(Integer.toString(bestStreak));
+        currentStreakBox.setText(Integer.toString(currentStreak));
+
+        List<Calendar> calendars = new ArrayList<>();
+        for (Date eachDate : userDatesList){
+            Calendar temp_cal = new GregorianCalendar();
+            temp_cal.setTime(eachDate);
+            calendars.add(temp_cal);
+            mEventDaysDone.add(new EventDay(temp_cal,R.drawable.sample_drawable, Color.parseColor("#228B22")));
+        }
+
+        mCalendarView.setHighlightedDays(calendars);
         mCalendarView.setEvents(mEventDaysDone);
-
-
-
-
 
        }
 
@@ -455,7 +409,9 @@ public class detailsActivity extends AppCompatActivity {
                 count++;
             }
             result = Math.max(result, count);
+            currentStreak = count;
         }
+
         return result;
     }
     }

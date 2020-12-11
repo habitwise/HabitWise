@@ -92,13 +92,24 @@ public class HomeParseRepository implements IHomeRepository{
                             DateTimeComparator dateTimeComparator = DateTimeComparator.getDateOnlyInstance();
                             int retVal = dateTimeComparator.compare(habitUser.getHabit().getCreatedAt(), date);
                             if (retVal > 0) continue;
+                            habitInnerQuery.whereEqualTo(Habit.key_days, cal.get(Calendar.DAY_OF_WEEK));
+
 
                             Task task = new Task();
                             task.setCounter(0);
                             task.setHabit(habitUser.getHabit());
                             task.setUser(ParseUser.getCurrentUser());
                             task.setTaskDate(date);
+                            task.saveInBackground();
                             tasks.add(task);
+                            if(habitUser.getHabit().getShared()){
+                                Task friendTask = new Task();
+                                friendTask.setCounter(0);
+                                friendTask.setHabit(habitUser.getHabit());
+                                friendTask.setUser(ParseUser.getCurrentUser());
+                                friendTask.setTaskDate(date);
+                                friendTask.saveInBackground();
+                            }
                         }
                         Collections.sort(tasks, new Comparator<Task>() {
                             @Override
