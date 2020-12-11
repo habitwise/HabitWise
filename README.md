@@ -129,7 +129,7 @@ Through these user insights, we are confident that a habit-tracking app where yo
 | frequency |  Number  | Number of times per day|
 | days | Arrays | If weekly, days on which habit should be accomplished|
 | status |  String  | Complete / Incomplete|
-
+| shared |  Boolean  | Whether the habit is shared between users|
 
 ### Activity
 
@@ -140,6 +140,14 @@ Through these user insights, we are confident that a habit-tracking app where yo
 | counter  | Number   | Number of times user accomplished habit|
 | user |  Pointer to User  | user who accomplished it|
 | habit |  Pointer to Habit  | Many to one reference to Habit's object|
+
+### HabitUserMapping
+
+| Property | Type     | Description |
+| -------- | -------- | -------- |
+| ObjectID | String   | Unique ID for the habit object|
+| habit |  Pointer to Habit  | Many to one reference to Habit's object|
+| users  | Arrays<User>  | Author of the habit|
 
 
 ### Friends
