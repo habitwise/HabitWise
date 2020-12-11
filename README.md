@@ -131,12 +131,12 @@ Through these user insights, we are confident that a habit-tracking app where yo
 | status |  String  | Complete / Incomplete|
 | shared |  Boolean  | Whether the habit is shared between users|
 
-### Activity
+### Session
 
 | Property | Type     | Description |
 | -------- | -------- | -------- |
-| ObjectID | String   | Unique ID for the habit's activity|
-| date | DateTime   | Date for which activity is recorded    |
+| ObjectID | String   | Unique ID for the habit's specific session|
+| date | DateTime   | Date for which session is recorded    |
 | counter  | Number   | Number of times user accomplished habit|
 | user |  Pointer to User  | user who accomplished it|
 | habit |  Pointer to Habit  | Many to one reference to Habit's object|
