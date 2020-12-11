@@ -40,14 +40,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/accept"
+                android:background="@drawable/button_accent"
+                android:textColor="@color/white"
                 tools:text="Accept" />
 
             <Button
                 android:id="@+id/btnDecline"
+                android:layout_marginLeft="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/decline"
+                android:background="@drawable/button_light"
                 tools:text="Decline" />
 
         </LinearLayout>
