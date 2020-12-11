@@ -95,7 +95,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                     toggleSwitch.setChecked(true);
                 else
                     toggleSwitch.setChecked(false);
-                description += "Once a day";
+                description += "Once";
 
                 toggleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
@@ -107,7 +107,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 });
             }
             else {
-                description += frequency + " times a day";
+                description += frequency + " times";
                 textViewCounter.setText(stringCount);
                 toggleSwitch.setVisibility(View.GONE);
                 counterBox.setVisibility(View.VISIBLE);
@@ -140,10 +140,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 });
             }
             if (recurrence== 0){
-                description += ", everyday!";
+                description += " everyday!";
             }
             else{
-                description += ", weekly!";
+                description += " a day, weekly!";
 //                Log.i(TAG,"fetching days:" + habit.getDays().getClass().getName());
 //                Log.i(TAG,"fetching days:" + habit.getDays());
             }

@@ -9,11 +9,13 @@ import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.codepath.habitwise.R;
+import com.codepath.habitwise.features.addUpdateHabit.AddHabitActivity;
 import com.codepath.habitwise.models.Habit;
 import com.codepath.habitwise.models.HabitUserMapping;
 import com.codepath.habitwise.models.Task;
@@ -133,6 +135,13 @@ public class detailsActivity extends AppCompatActivity {
         populateBanner();
         populateStatistics();
 
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                habitObject.deleteInBackground();
+            }
+        });
+
     }
 
 
@@ -150,7 +159,7 @@ public class detailsActivity extends AppCompatActivity {
                 toggleSwitch.setChecked(true);
             else
                 toggleSwitch.setChecked(false);
-            description += "Once a day";
+            description += "Once";
 
             toggleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -162,7 +171,7 @@ public class detailsActivity extends AppCompatActivity {
             });
         }
         else {
-            description += frequency + " times a day";
+            description += frequency + " times";
             textViewCounter.setText(userStringCount);
             toggleSwitch.setVisibility(View.GONE);
             counterBox.setVisibility(View.VISIBLE);
@@ -193,7 +202,7 @@ public class detailsActivity extends AppCompatActivity {
             });
         }
         if (recurrence == 0){
-            description += ", everyday!";
+            description += " everyday!";
         }
         else{
             description += ", weekly!";
@@ -260,13 +269,14 @@ public class detailsActivity extends AppCompatActivity {
 
     }
 
-    protected void queryFriendTasks(ParseUser friendObject) {
+    protected void queryFriendTasks(ParseUser friendUser) {
         ParseQuery<Task> taskQuery = ParseQuery.getQuery(Task.class);
+        Log.i(TAG, "friendTask--------" + habitObject.getTitle() + friendUser.getObjectId());
         taskQuery.include(Task.key_habit);
         taskQuery.include(Task.key_user);
-        taskQuery.whereEqualTo(Task.key_user, friendObject );
+        taskQuery.whereEqualTo(Task.key_user, friendUser );
         taskQuery.whereEqualTo(Task.key_habit, habitObject);
-        taskQuery.whereGreaterThanOrEqualTo("counter" ,1 );
+//        taskQuery.whereGreaterThanOrEqualTo("counter" ,1 );
         taskQuery.whereLessThanOrEqualTo(Task.key_task_date, dateObject);
         try {
             friendTaskList = taskQuery.find();
@@ -277,10 +287,15 @@ public class detailsActivity extends AppCompatActivity {
 
 
         for(Task friendTask : friendTaskList){
+            Log.i(TAG, "friendTask" + friendTask.getHabit().getTitle());
             if(friendTask.getTaskDate().equals(dateObject)){
                 friendTodayTask = friendTask;
                 saveTask = false;
-                break;
+
+            }
+            if(friendTask.getCounter() == 0){
+                friendTaskList.remove(friendTask);
+
             }
         }
         if(saveTask){
