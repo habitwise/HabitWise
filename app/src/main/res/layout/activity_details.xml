@@ -9,8 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:orientation="vertical"
+        android:layout_margin="24dp"
         android:scrollbars="vertical">
 
         <TextView
@@ -18,17 +18,22 @@
             style="@style/TextAppearance.AppCompat.Headline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:text="Drink Water"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"></TextView>
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:layout_marginTop="36dp"
+            ></TextView>
 
         <TextView
             android:id="@+id/tvInfo"
             style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:textAlignment="center"
             android:text="5 times everyday!  "></TextView>
 
         <Switch
@@ -73,164 +78,205 @@
                 android:layout_toRightOf="@+id/textViewCounter"
                 android:text="+" />
 
-
         </RelativeLayout>
+        <TextView
+            android:id="@+id/tvToday"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:text="Today "></TextView>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/FriendsBox"
-            android:layout_width="fill_parent"
-            android:layout_height="70dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder"
-            android:gravity="center_horizontal">
-
-            <TextView
-                android:id="@+id/youTextBox"
-                android:layout_width="50dp"
-                android:layout_height="25dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:background="@drawable/lightblue"
+            android:orientation="horizontal"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:text="You" />
+                >
+                <TextView
+                    android:id="@+id/youTextBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="You"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    />
 
+                <TextView
+                    android:id="@+id/youCompleteBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="1/4 completed" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/youCompleteBox"
-                android:layout_width="100dp"
-                android:layout_height="25dp"
-                android:layout_below="@id/youTextBox"
-                android:layout_alignLeft="@id/youTextBox"
-                android:layout_alignParentStart="false"
-                android:layout_alignParentRight="false"
-                android:layout_marginStart="-10dp"
-                android:layout_marginTop="3dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:text="1/4 completed" />
+                android:layout_gravity="center"
+                >
+                <TextView
+                    android:id="@+id/currentStreakBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:text="7 days" />
 
-            <TextView
-                android:id="@+id/currentStreakBox"
-                android:layout_width="50dp"
-                android:layout_height="25dp"
-                android:layout_alignBottom="@+id/youTextBox"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:layout_toRightOf="@+id/youTextBox"
+                <ImageView
+                    android:id="@+id/ivStreak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_fire" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:text="7 days" />
+                >
+                <TextView
+                    android:id="@+id/friendsTextBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="John"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:visibility="invisible" />
 
+                <TextView
+                    android:id="@+id/friendsCompleteBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4/4 completed"
+                    android:visibility="invisible" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/friendsTextBox"
-                android:layout_width="50dp"
-                android:layout_height="25dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="0dp"
-                android:layout_toRightOf="@+id/currentStreakBox"
-                android:gravity="center"
-                android:text="John"
-                android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/friendsCompleteBox"
-                android:layout_width="100dp"
-                android:layout_height="25dp"
-                android:layout_below="@id/friendsTextBox"
-                android:layout_alignLeft="@id/friendsTextBox"
-                android:layout_toRightOf="@+id/youCompleteBox"
-                android:text="4/4 completed"
-                android:visibility="invisible" />
-
-
-        </RelativeLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tvAllTime"
             style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
             android:text="Your All Time Stats "></TextView>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/statisticsBox"
-            android:layout_width="fill_parent"
-            android:layout_height="100dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/customborder"
-            android:gravity="center_horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/lightblue"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            >
 
-            <TextView
-                android:id="@+id/bestStreakBox"
-                android:layout_width="50dp"
-                android:layout_height="25dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="0dp"
-                android:gravity="center"
-                android:text="37" />
-
-
-            <TextView
-                android:id="@+id/bestStreakText"
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:layout_below="@id/bestStreakBox"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="3dp"
-                android:gravity="center"
-                android:text="Best Streak" />
-
-            <TextView
-                android:id="@+id/allTimeBox"
-                android:layout_width="50dp"
-                android:layout_height="25dp"
-                android:layout_alignBottom="@+id/bestStreakBox"
-                android:layout_marginLeft="80dp"
-                android:layout_marginRight="80dp"
-                android:layout_toRightOf="@+id/bestStreakBox"
-                android:gravity="center"
-                android:text="77.3 %" />
-
-            <TextView
-                android:id="@+id/allTimeText"
-                android:layout_width="70dp"
-                android:layout_height="25dp"
-                android:layout_below="@id/allTimeBox"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:layout_toRightOf="@+id/bestStreakText"
-                android:gravity="center"
-                android:text="All Time" />
-
-
-            <TextView
-                android:id="@+id/completionsBox"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="3dp"
-                android:layout_toRightOf="@+id/allTimeBox"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:text=" 49 / 80" />
+                >
 
-            <TextView
-                android:id="@+id/completionsText"
-                android:layout_width="80dp"
-                android:layout_height="25dp"
-                android:layout_below="@id/completionsBox"
-                android:layout_toRightOf="@+id/allTimeText"
+                <TextView
+                    android:id="@+id/bestStreakBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:text="37" />
+
+                <TextView
+                    android:id="@+id/bestStreakText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bestStreakBox"
+                    android:text="Best Streak" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Completions" />
-        </RelativeLayout>
+                >
+
+                <TextView
+                    android:id="@+id/allTimeBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:text="77.3 %" />
+
+                <TextView
+                    android:id="@+id/allTimeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All Time" />
+            </LinearLayout>
+
+            <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/completionsBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:text=" 49 / 80" />
+
+                <TextView
+                    android:id="@+id/completionsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Completions" />
+            </LinearLayout>
+        </LinearLayout>
 
         <com.applandeo.materialcalendarview.CalendarView
             android:id="@+id/calendarViewDetails"
-            android:layout_width="333dp"
+            android:layout_width="match_parent"
             android:layout_height="345dp"
+            android:layout_marginTop="24dp"
+            android:layout_gravity="center"
             app:headerColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -245,24 +291,29 @@
 
         <Button
             android:id="@+id/btnEdit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             android:text="EDIT" />
 
         <Button
-            android:id="@+id/btnDelete"
-            android:layout_width="wrap_content"
+            android:id="@+id/btnComplete"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="DELETE" />
+            android:layout_marginTop="8dp"
+            android:text="COMPLETE" />
 
         <Button
-            android:id="@+id/btnComplete"
-            android:layout_width="wrap_content"
+            android:id="@+id/btnDelete"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="COMPLETE" />
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/lightred"
+            android:text="DELETE" />
 
 
     </LinearLayout>
