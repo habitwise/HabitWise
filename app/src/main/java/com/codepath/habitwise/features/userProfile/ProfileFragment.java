@@ -97,6 +97,7 @@ public class ProfileFragment extends Fragment implements IUserProfileEventListne
                         .setFirstTextFieldHint("Friend's Email")
                         .setFirstButtonText("SEND FRIEND REQUEST")
                         .setSecondButtonText("CANCEL")
+                        
                         .withFirstButtonListner(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -120,7 +121,7 @@ public class ProfileFragment extends Fragment implements IUserProfileEventListne
                                         } else {
                                             Toast.makeText(getContext(), "Unable to send friend request", Toast.LENGTH_LONG).show();
                                         }
-                                        Log.e(TAG, "Error occured while fetching friend: " + e.getMessage());
+                                        Log.e(TAG, "Error occurred while fetching friend: " + e.getMessage());
                                     }
                                 } else {
                                     Toast.makeText(getContext(), "Enter valid email", Toast.LENGTH_LONG).show();
