@@ -107,6 +107,7 @@ public class ProfileFragment extends Fragment implements IUserProfileEventListne
                         .setSubtitleColor(Color.parseColor("#1976D2"))
                         .setFirstTextFieldBorderColor(Color.parseColor("#1976D2"))
                         .setFirstTextFieldHintColor(Color.parseColor("#1976D2"))
+                        .setFirstTextFieldTextColor(Color.parseColor("#1976D2"))
                         .withFirstButtonListner(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
