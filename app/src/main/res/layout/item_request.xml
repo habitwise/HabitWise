@@ -39,6 +39,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/button_accent"
+                android:textColor="@color/white"
                 android:text="@string/accept"
                 tools:text="Accept" />
 
@@ -47,6 +49,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/button_light"
                 android:text="@string/decline"
                 tools:text="Decline" />
 
