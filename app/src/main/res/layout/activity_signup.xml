@@ -29,7 +29,7 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/ivUserProfileImage"
+            android:id="@+id/ivUserProfileImage1"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:src="@drawable/ic_baseline_person_24"

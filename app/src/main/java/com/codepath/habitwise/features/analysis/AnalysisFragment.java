@@ -5,22 +5,34 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.habitwise.R;
-import com.codepath.habitwise.features.addUpdateHabit.AddHabitActivity;
-import com.codepath.habitwise.features.loginSignup.LoginActivity;
+import com.codepath.habitwise.models.Analysis;
 import com.codepath.habitwise.models.Habit;
 import com.parse.ParseUser;
 
-public class AnalysisFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
+
+public class AnalysisFragment extends Fragment implements IAnalysisEventListner{
     private Habit emptyHabit;
-    private Button btnNewHabit;
+    private TextView tvSharedStreak;
+    private TextView tvPersonalStreak;
+    private RecyclerView rvSharedStreak;
+    private RecyclerView rvPersonalStreak;
+    private List<Analysis> personalAnalysis;
+    private List<Analysis> sharedAnalysis;
+    private PersonalAnalysisAdapter personalAnalysisAdapter;
+    private SharedAnalysisAdapter sharedAnalysisAdapter;
 
 
     public AnalysisFragment() {
@@ -39,17 +51,39 @@ public class AnalysisFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         emptyHabit = new Habit();
-        btnNewHabit = view.findViewById(R.id.btnNewHabit);
 
+        // Starts here
+        tvPersonalStreak = view.findViewById(R.id.tvPersonalStreak);
+        tvSharedStreak = view.findViewById(R.id.tvSharedStreak);
+        rvPersonalStreak = view.findViewById(R.id.rvPersonalStreak);
+        rvSharedStreak = view.findViewById(R.id.rvSharedStreak);
 
-        btnNewHabit.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddHabitActivity.class);
-                intent.putExtra("habit", emptyHabit);
-                startActivity(intent);
-            }
-        });
+        IAnalysisRepository repo = AnalysisMockRepository.getInstance();
+        repo.getPersonalStreak(this);
+        repo.getSharedStreak(this);
+
+        personalAnalysis = new ArrayList<>();
+        sharedAnalysis = new ArrayList<>();
+        personalAnalysisAdapter = new PersonalAnalysisAdapter(getContext(), personalAnalysis);
+        sharedAnalysisAdapter = new SharedAnalysisAdapter(getContext(), sharedAnalysis);
+        rvPersonalStreak.setAdapter(personalAnalysisAdapter);
+        rvSharedStreak.setAdapter(sharedAnalysisAdapter);
+        rvPersonalStreak.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvSharedStreak.setLayoutManager(new LinearLayoutManager(getContext()));
 
     }
 
+    @Override
+    public void onFetchOfPersonalStreakList(List<Analysis> personalAnalysisList) {
+        personalAnalysis.clear();
+        personalAnalysis.addAll(personalAnalysisList);
+        personalAnalysisAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onFetchOfSharedStreakList(List<Analysis> sharedAnalysisList) {
+        sharedAnalysis.clear();
+        sharedAnalysis.addAll(sharedAnalysisList);
+        sharedAnalysisAdapter.notifyDataSetChanged();
+    }
 }

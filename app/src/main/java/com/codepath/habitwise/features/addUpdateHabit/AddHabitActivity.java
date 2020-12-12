@@ -329,21 +329,21 @@ public class AddHabitActivity extends AppCompatActivity implements IUserProfileE
 
     @Override
     public void loadLatestFriendsList() {
-
+        return;
     }
 
     @Override
     public void fetchFriendRequestsSuccessful(List<Friends> newFriendRequests) {
-
+        return;
     }
 
     @Override
     public void fetchFriendRequestsFailed(Exception e) {
-
+        return;
     }
 
     @Override
     public void updateRvFriendRequests() {
-
+        return;
     }
 }

@@ -16,7 +16,6 @@ import com.codepath.habitwise.R;
 import com.codepath.habitwise.objectKeys.ObjParseUser;
 import com.parse.GetFileCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import java.io.File;
@@ -60,7 +59,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvFriendName = itemView.findViewById(R.id.tvFriendName);
-            ivUserProfileImage = itemView.findViewById(R.id.ivUserProfileImage);
+            ivUserProfileImage = itemView.findViewById(R.id.ivUserProfileImage1);
         }
 
         public void bind(ParseUser friend) {

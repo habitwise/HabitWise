@@ -61,7 +61,7 @@ public class SignupActivity extends AppCompatActivity implements ISignupEventLis
         viewSignup = findViewById(R.id.viewSignup);
         btnSignup = findViewById(R.id.btnSignUp);
         btnAddDisplayPic = findViewById(R.id.btnAddDisplayPic);
-        displayPic = findViewById(R.id.ivUserProfileImage);
+        displayPic = findViewById(R.id.ivUserProfileImage1);
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override

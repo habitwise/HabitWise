@@ -6,11 +6,54 @@
     android:orientation="vertical"
     tools:context=".features.analysis.AnalysisFragment">
 
-    <Button
-        android:id="@+id/btnNewHabit"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add a new habit"
-        />
+        android:orientation="vertical"
+        android:paddingTop="15dp"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tvSharedStreak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Shared Streaks"
+            android:textSize="24sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rvSharedStreak"
+            android:padding="8dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:id="@+id/tvPersonalStreak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Personal Streaks"
+            android:textSize="24sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rvPersonalStreak"
+            android:padding="8dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
 
 </LinearLayout>
