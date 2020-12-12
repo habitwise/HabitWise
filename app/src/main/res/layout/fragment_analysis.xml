@@ -18,7 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Shared Streaks"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"/>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,7 +43,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Personal Streaks"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"/>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
