@@ -346,5 +346,4 @@ public class AddHabitActivity extends AppCompatActivity implements IUserProfileE
     public void updateRvFriendRequests() {
         return;
     }
-
 }
