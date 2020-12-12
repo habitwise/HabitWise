@@ -1,55 +1,24 @@
 package com.codepath.habitwise.models;
 
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-public class Analysis {
-    public ParseUser user1;
-    public ParseUser user2;
-    public int currentStreak;
-    public int highestStreak;
-    public Habit habit;
+@ParseClassName("Analysis")
+public class Analysis extends ParseObject {
 
-    public Analysis (Habit habit) {
-        this.habit = habit;
-    }
+    public static final String key_user1 = "user1";
+    public static final String key_user2 = "user2";
+    public static final String key_currentStreak = "currentStreak";
+    public static final String key_highestStreak = "highestStreak";
+    public static final String key_habit = "habit";
+    public static final String key_isPersonal = "isPersonal";
 
-    public ParseUser getUser1() {
-        return user1;
-    }
+    public ParseUser getUser1(){return getParseUser(key_user1);}
+    public ParseUser getUser2(){return getParseUser(key_user2);}
+    public int getCurrentStreak(){return getInt(key_currentStreak);}
+    public int getHighestStreak(){return getInt(key_highestStreak);}
+    public Habit getHabit(){return (Habit) getParseObject(key_habit);}
+    public boolean isPersonal(){return getBoolean(key_isPersonal);}
 
-    public void setUser1(ParseUser user1) {
-        this.user1 = user1;
-    }
-
-    public ParseUser getUser2() {
-        return user2;
-    }
-
-    public void setUser2(ParseUser user2) {
-        this.user2 = user2;
-    }
-
-    public int getCurrentStreak() {
-        return currentStreak;
-    }
-
-    public void setCurrentStreak(int currentStreak) {
-        this.currentStreak = currentStreak;
-    }
-
-    public int getHighestStreak() {
-        return highestStreak;
-    }
-
-    public void setHighestStreak(int highestStreak) {
-        this.highestStreak = highestStreak;
-    }
-
-    public Habit getHabit() {
-        return habit;
-    }
-
-    public void setHabit(Habit habit) {
-        this.habit = habit;
-    }
 }

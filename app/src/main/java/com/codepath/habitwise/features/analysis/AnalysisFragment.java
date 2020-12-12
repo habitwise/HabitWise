@@ -25,7 +25,6 @@ import java.util.List;
 
 public class AnalysisFragment extends Fragment implements IAnalysisEventListner{
     private Habit emptyHabit;
-    private Button btnNewHabit;
     private TextView tvSharedStreak;
     private TextView tvPersonalStreak;
     private RecyclerView rvSharedStreak;
@@ -52,18 +51,6 @@ public class AnalysisFragment extends Fragment implements IAnalysisEventListner{
         super.onViewCreated(view, savedInstanceState);
 
         emptyHabit = new Habit();
-        btnNewHabit = view.findViewById(R.id.btnNewHabit);
-
-
-        btnNewHabit.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), AddHabitActivity.class);
-//                intent.putExtra("habit", emptyHabit);
-//                startActivity(intent);
-                AnalysisParseRepository analysisParseRepository = new AnalysisParseRepository();
-                analysisParseRepository.getAnalysisItems(ParseUser.getCurrentUser());
-            }
-        });
 
         // Starts here
         tvPersonalStreak = view.findViewById(R.id.tvPersonalStreak);

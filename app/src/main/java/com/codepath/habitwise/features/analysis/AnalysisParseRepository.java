@@ -67,15 +67,15 @@ public class AnalysisParseRepository {
 //            Log.i("TP", "Habit: " + task.getHabit().getTitle() + " Task Date: " + task.getTaskDate().toString() + "  User: " + task.getUser().getUsername() + " Habit array: " + task.getHabit().getDays());
 //        }
 
-        Habit selectedHabit = new Habit();
-        Analysis analysis = new Analysis(selectedHabit);
-        for(Task task : sortedTask) {
-            if (selectedHabit != task.getHabit()) {
-                selectedHabit = task.getHabit();
-                analysis = new Analysis(selectedHabit);
-            }
-
-        }
+//        Habit selectedHabit = new Habit();
+//        Analysis analysis = new Analysis(selectedHabit);
+//        for(Task task : sortedTask) {
+//            if (selectedHabit != task.getHabit()) {
+//                selectedHabit = task.getHabit();
+//                analysis = new Analysis(selectedHabit);
+//            }
+//
+//        }
 
         return null;
     }
