@@ -67,7 +67,7 @@ public class PersonalAnalysisAdapter extends RecyclerView.Adapter<PersonalAnalys
 
         public void bind(Analysis analysis) {
             tvTitle.setText(analysis.getHabit().getTitle());
-            tvSubtitle.setText("TODO: build up");
+            tvSubtitle.setText(analysis.getSubtitle());
             tvStreakScore.setText(analysis.getCurrentStreak() + "");
 
             analysis.getUser1().getParseFile(ObjParseUser.KEY_DISPLAY_PIC).getFileInBackground(new GetFileCallback() {

@@ -13,6 +13,7 @@ public class Analysis extends ParseObject {
     public static final String key_highestStreak = "highestStreak";
     public static final String key_habit = "habit";
     public static final String key_isPersonal = "isPersonal";
+    public static final String key_subtitle = "subtitle";
 
     public ParseUser getUser1(){return getParseUser(key_user1);}
     public ParseUser getUser2(){return getParseUser(key_user2);}
@@ -20,5 +21,5 @@ public class Analysis extends ParseObject {
     public int getHighestStreak(){return getInt(key_highestStreak);}
     public Habit getHabit(){return (Habit) getParseObject(key_habit);}
     public boolean isPersonal(){return getBoolean(key_isPersonal);}
-
+    public String getSubtitle(){return getString(key_subtitle);}
 }
