@@ -23,6 +23,8 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.joda.time.DateTimeComparator;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -285,7 +287,7 @@ public class detailsActivity extends AppCompatActivity {
         }
         boolean saveTask = true;
 
-
+        List<Task> removals = new ArrayList<>();
         for(Task friendTask : friendTaskList){
             Log.i(TAG, "friendTask" + friendTask.getHabit().getTitle());
             if(friendTask.getTaskDate().equals(dateObject)){
@@ -294,9 +296,12 @@ public class detailsActivity extends AppCompatActivity {
 
             }
             if(friendTask.getCounter() == 0){
-                friendTaskList.remove(friendTask);
-
+//                friendTaskList.remove(friendTask);
+                removals.add(friendTask);
             }
+        }
+        for (Task task1 : removals){
+            friendTaskList.remove(task1);
         }
         if(saveTask){
             Task newTask = new Task();
@@ -339,28 +344,17 @@ public class detailsActivity extends AppCompatActivity {
         for (Task task : userTaskList) {
             userTasksCompleted += task.getCounter();
             if (task.getCounter() >= task.getHabit().getFrequency()) {
-                Date date = task.getTaskDate();
-                Calendar temp_cal = new GregorianCalendar();
-                temp_cal.setTime(date);
-                temp_cal.clear(Calendar.HOUR_OF_DAY);
-                temp_cal.clear(Calendar.MINUTE);
-                temp_cal.clear(Calendar.SECOND);
-                temp_cal.clear(Calendar.MILLISECOND);
-                userDatesList.add(temp_cal.getTime());
+                Log.i(TAG,"tasks"+task.getObjectId());
+                Date date = removeTimeFromDate(task.getTaskDate());
+                userDatesList.add(date);
             }
         }
 
         for (Task friendTask : friendTaskList) {
             friendTasksCompleted += friendTask.getCounter();
             if (friendTask.getCounter() >= friendTask.getHabit().getFrequency()) {
-                Date date = friendTask.getTaskDate();
-                Calendar temp_cal = new GregorianCalendar();
-                temp_cal.setTime(date);
-                temp_cal.clear(Calendar.HOUR_OF_DAY);
-                temp_cal.clear(Calendar.MINUTE);
-                temp_cal.clear(Calendar.SECOND);
-                temp_cal.clear(Calendar.MILLISECOND);
-                friendDatesList.add(temp_cal.getTime());
+                Date date = removeTimeFromDate(friendTask.getTaskDate());
+                friendDatesList.add(date);
             }
         }
         int total = userTasksCompleted + friendTasksCompleted;
@@ -380,17 +374,52 @@ public class detailsActivity extends AppCompatActivity {
         currentStreakBox.setText(Integer.toString(currentStreak));
 
         List<Calendar> calendars = new ArrayList<>();
-        for (Date eachDate : userDatesList){
+        Date start = removeTimeFromDate(habitObject.getCreatedAt());
+        Log.i(TAG,"Start"+start  );
+        Date end = dateObject;
+        Log.i(TAG,"dates"+start + end );
+        DateTimeComparator dateTimeComparator = DateTimeComparator.getDateOnlyInstance();
+        int retVal = dateTimeComparator.compare(start, end);
+        while ( retVal <= 0){
+            Log.i(TAG,"dates inside"+start + end );
+            if (habitObject.getDays().contains(start.getDay()) ){
+                Log.i(TAG, "True");
+                datesList.add(start);
+            }
+            Calendar temp_start = new GregorianCalendar();
+            temp_start.setTime(start);
+            temp_start.add(Calendar.DATE, 1); // Next Day
+            start = temp_start.getTime();
+            DateTimeComparator comp = DateTimeComparator.getDateOnlyInstance();
+            retVal = comp.compare(start, end);
+            Log.i(TAG,"habit name"+habitObject.getTitle() + habitObject.getObjectId());
+        }
+        for (Date eachdate: datesList) {
             Calendar temp_cal = new GregorianCalendar();
-            temp_cal.setTime(eachDate);
+            temp_cal.setTime(eachdate);
             calendars.add(temp_cal);
-            mEventDaysDone.add(new EventDay(temp_cal,R.drawable.sample_drawable, Color.parseColor("#228B22")));
+            Log.i(TAG, "out" + eachdate + datesList);
+            if (userDatesList.contains(eachdate)) {
+                Log.i(TAG, "in" + eachdate + userDatesList);
+                mEventDaysDone.add(new EventDay(temp_cal, R.drawable.sample_drawable, Color.parseColor("#228B22")));
+            } else {
+                mEventDaysDone.add(new EventDay(temp_cal, R.drawable.incomplete_days, Color.parseColor("#8b2422")));
+            }
         }
 
         mCalendarView.setHighlightedDays(calendars);
         mCalendarView.setEvents(mEventDaysDone);
 
        }
+    private Date removeTimeFromDate (Date dateObj){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dateObj);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
+    }
 
     public int longestConsecutive(List<Date> dates) {
         HashSet<Date> set = new HashSet<>();
