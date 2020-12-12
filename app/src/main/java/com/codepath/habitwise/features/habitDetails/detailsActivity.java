@@ -19,6 +19,7 @@ import com.codepath.habitwise.features.addUpdateHabit.AddHabitActivity;
 import com.codepath.habitwise.models.Habit;
 import com.codepath.habitwise.models.HabitUserMapping;
 import com.codepath.habitwise.models.Task;
+import com.codepath.habitwise.objectKeys.ObjParseUser;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -224,7 +225,7 @@ public class detailsActivity extends AppCompatActivity {
             friendsCompleteBox.setText(friendTaskCompletion);
             friendsTextBox.setVisibility(View.VISIBLE);
             friendsCompleteBox.setVisibility(View.VISIBLE);
-            friendsTextBox.setText(friendObject.getUsername());
+            friendsTextBox.setText(friendObject.get(ObjParseUser.KEY_FIRST_NAME).toString());
         }
     }
 
