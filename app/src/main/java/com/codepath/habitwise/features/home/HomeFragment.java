@@ -17,9 +17,11 @@ import android.view.ViewGroup;
 
 import com.codepath.habitwise.R;
 import com.codepath.habitwise.features.Utilities;
+import com.codepath.habitwise.features.addUpdateHabit.AddHabitActivity;
 import com.codepath.habitwise.features.habitDetails.detailsActivity;
 import com.codepath.habitwise.models.Habit;
 import com.codepath.habitwise.models.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,6 +39,8 @@ public class HomeFragment extends Fragment implements IHomeEventListner , TaskAd
     protected SwipeRefreshLayout swipeContainer;
     private RecyclerView rvTasks;
     protected TaskAdapter taskAdapter;
+    private Habit emptyHabit;
+    private FloatingActionButton fabAddHabit;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -54,7 +58,17 @@ public class HomeFragment extends Fragment implements IHomeEventListner , TaskAd
         super.onViewCreated(view, savedInstanceState);
         habits = new ArrayList<>();
         tasks = new ArrayList<>();
+
         selectedCal = Utilities.getDateWithoutTimeUsingCalendar(Calendar.getInstance());
+        fabAddHabit = view.findViewById(R.id.fabAddHabit);
+        emptyHabit = new Habit();
+        fabAddHabit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AddHabitActivity.class);
+                intent.putExtra("habit", emptyHabit);
+                startActivity(intent);
+            }
+        });
 
         /* starts before 1 month from now */
         Calendar startDate = Calendar.getInstance();

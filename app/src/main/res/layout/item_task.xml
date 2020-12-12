@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@drawable/customborder"
+    android:background="@drawable/background_task"
     android:orientation="vertical">
 
     <TextView
@@ -16,6 +16,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/design_default_color_primary_dark"
         android:textStyle="bold"
+        android:layout_weight="1"
         ></TextView>
 
     <TextView
@@ -24,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:text="5 times everyday! (fake data) "></TextView>
 
     <Switch
