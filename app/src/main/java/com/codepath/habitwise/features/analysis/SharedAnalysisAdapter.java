@@ -9,9 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.codepath.habitwise.R;
 import com.codepath.habitwise.models.Analysis;
 import com.codepath.habitwise.objectKeys.ObjParseUser;
@@ -21,6 +18,8 @@ import com.parse.ParseException;
 import java.io.File;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SharedAnalysisAdapter extends RecyclerView.Adapter<SharedAnalysisAdapter.ViewHolder>{
@@ -63,7 +62,7 @@ public class SharedAnalysisAdapter extends RecyclerView.Adapter<SharedAnalysisAd
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvSubtitle = itemView.findViewById(R.id.tvSubTitle);
-            tvStreakScore = itemView.findViewById(R.id.tvStreakScore);
+            tvStreakScore = itemView.findViewById(R.id.tvStreakScorePersonal);
             userImage1 = itemView.findViewById(R.id.ivUser1);
             userImage2 = itemView.findViewById(R.id.ivUser2);
         }
