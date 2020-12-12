@@ -63,7 +63,7 @@ class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdapter.Vie
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvFriendName = itemView.findViewById(R.id.tvFriendName);
-            ivUserProfileImage = itemView.findViewById(R.id.ivUserProfileImage);
+            ivUserProfileImage = itemView.findViewById(R.id.ivUserProfileImage1);
             btnConfirm = itemView.findViewById(R.id.btnConfirm);
             btnDecline = itemView.findViewById(R.id.btnDecline);
         }
